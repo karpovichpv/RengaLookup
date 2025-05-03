@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	<TargetFramework>net8.0</TargetFramework>
+	<ImplicitUsings>enable</ImplicitUsings>
+	<Nullable>enable</Nullable>
+	<PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<COMFileReference Include="..\..\RengaSDK\tlb\RengaCOMAPI.tlb"></COMFileReference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="Renga.NET8.PluginUtility">
+	    <HintPath>..\..\RengaSDK\Net\Renga.NET8.PluginUtility.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="RengaLookup.Plugin.rndesc">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="ico.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="if not exist &quot;$(RENGA_INSTALL_DIR)\Plugins\$(ProjectName)&quot; mkdir &quot;$(RENGA_INSTALL_DIR)\Plugins\$(ProjectName)&quot;" />
+		<Exec Command="copy /Y &quot;$(ProjectDir)$(ProjectName).rndesc&quot; &quot;$(RENGA_INSTALL_DIR)\Plugins\$(ProjectName)\$(ProjectName).rndesc&quot;" />
+	</Target>
+
+	<PropertyGroup>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	</PropertyGroup>
+
+</Project>
