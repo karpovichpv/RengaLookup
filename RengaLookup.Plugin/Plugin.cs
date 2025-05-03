@@ -1,4 +1,5 @@
 ﻿using Renga;
+using RengaLookup.Plugin.Domain;
 
 namespace RengaLookup.Plugin
 {
@@ -68,10 +69,13 @@ namespace RengaLookup.Plugin
 
 		private static void ShowMessageBox(IUI ui, string title, string id)
 		{
+			RengaInfoGetter getter = new();
+			string info = getter.Get();
+
 			ui.ShowMessageBox(
 				MessageIcon.MessageIcon_Info,
 				title,
-				id);
+				$"{id}\r\n{info}");
 		}
 	}
 }

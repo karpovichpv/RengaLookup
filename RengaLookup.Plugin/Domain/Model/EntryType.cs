@@ -1,4 +1,4 @@
-﻿namespace RengaLookup.Plugin.Domain
+﻿namespace RengaLookup.Plugin.Domain.Model
 {
 	internal enum EntryType
 	{
