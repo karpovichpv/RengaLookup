@@ -46,25 +46,32 @@ namespace RengaLookup.Plugin
 		private void ShowInfoAboutObject(IUI ui)
 		{
 			if (_app is null)
-			{
 				return;
-			}
+
 			IModel model = _app.Project.Model;
+			if (model is null)
+				return;
+
 			ISelection selection = _app.Selection;
 			int[] array = (int[])selection.GetSelectedObjects();
+
+			IModelObjectCollection modelObjects = model.GetObjects();
 			foreach (int index in array)
 			{
-				if (model is not null)
-				{
-					IModelObjectCollection modelObjects = model.GetObjects();
-					IModelObject modelObject = modelObjects.GetById(index);
-					if (modelObject is not null)
-					{
-						ui.ShowMessageBox(MessageIcon.MessageIcon_Info, "Luck", "Selected object is not null");
-					}
-				}
-
+				IModelObject modelObject = modelObjects.GetById(index);
+				if (modelObject is not null)
+					ShowMessageBox(ui, "Luck", modelObject.Id.ToString());
+				else
+					ShowMessageBox(ui, "Fail", "Object is null");
 			}
+		}
+
+		private static void ShowMessageBox(IUI ui, string title, string id)
+		{
+			ui.ShowMessageBox(
+				MessageIcon.MessageIcon_Info,
+				title,
+				id);
 		}
 	}
 }
