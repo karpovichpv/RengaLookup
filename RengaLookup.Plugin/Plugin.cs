@@ -61,16 +61,20 @@ namespace RengaLookup.Plugin
 			{
 				IModelObject modelObject = modelObjects.GetById(index);
 				if (modelObject is not null)
-					ShowMessageBox(ui, "Luck", modelObject.Id.ToString());
+					ShowMessageBox(ui, "Luck", modelObject.Id.ToString(), modelObject);
 				else
-					ShowMessageBox(ui, "Fail", "Object is null");
+					ShowMessageBox(ui, "Fail", "Object is null", null);
 			}
 		}
 
-		private static void ShowMessageBox(IUI ui, string title, string id)
+		private static void ShowMessageBox(IUI ui, string title, string id, IModelObject? modelObject)
 		{
-			RengaInfoGetter getter = new();
-			string info = getter.Get();
+			string info = string.Empty;
+			if (modelObject is not null)
+			{
+				RengaInfoGetter getter = new(modelObject);
+				info = getter.Get();
+			}
 
 			ui.ShowMessageBox(
 				MessageIcon.MessageIcon_Info,

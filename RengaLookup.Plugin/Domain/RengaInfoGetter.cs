@@ -1,13 +1,13 @@
-﻿using System.Reflection;
+﻿using Renga;
+using System.Reflection;
 using System.Text;
 
 namespace RengaLookup.Plugin.Domain
 {
-	internal class RengaInfoGetter
+	internal class RengaInfoGetter(IModelObject modelObject)
 	{
-		public RengaInfoGetter()
-		{
-		}
+		private readonly IModelObject _modelObject
+			= modelObject ?? throw new ArgumentNullException(nameof(modelObject));
 
 		public string Get()
 		{
@@ -25,10 +25,16 @@ namespace RengaLookup.Plugin.Domain
 				Assembly assembly = Assembly.Load(interopAssembly);
 
 				// Get all interfaces
-				var interfaces = assembly.GetTypes().Where(t => t.IsInterface);
-				foreach (Type? iface in interfaces)
+				IEnumerable<Type> interfaces = assembly
+					.GetTypes()
+					.Where(t => t.IsInterface);
+				foreach (Type? @interface in interfaces)
 				{
-					builder.AppendLine(iface.FullName);
+					// Try to cast using reflection
+					if (@interface.IsInstanceOfType(_modelObject))
+					{
+						builder.AppendLine(@interface.FullName);
+					}
 				}
 			}
 
