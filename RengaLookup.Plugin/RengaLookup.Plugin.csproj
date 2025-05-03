@@ -27,7 +27,7 @@
 	</ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<Exec Command="if not exist &quot;$(RENGA_INSTALL_DIR)\Plugins\$(ProjectName)&quot; mkdir &quot;$(RENGA_INSTALL_DIR)\Plugins\$(ProjectName)&quot;" />
+	<Exec Command="if not exist &quot;$(RENGA_INSTALL_DIR)\Plugins\$(ProjectName)&quot; mkdir &quot;$(RENGA_INSTALL_DIR)\Plugins\$(ProjectName)&quot;" />
 		<Exec Command="copy /Y &quot;$(ProjectDir)$(ProjectName).rndesc&quot; &quot;$(RENGA_INSTALL_DIR)\Plugins\$(ProjectName)\$(ProjectName).rndesc&quot;" />
 	</Target>
 
