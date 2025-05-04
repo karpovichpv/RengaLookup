@@ -2,6 +2,6 @@
 {
 	internal class InterfaceEntry
 	{
-		public IEnumerable<EntryInfo>? Infos { get; set; }
+		public IEnumerable<Data>? Infos { get; set; }
 	}
 }
