@@ -1,7 +1,6 @@
 ﻿using Renga;
 using RengaLookup.Plugin.Domain.Model;
 using System.Reflection;
-using System.Text;
 
 namespace RengaLookup.Plugin.Domain
 {
@@ -10,16 +9,15 @@ namespace RengaLookup.Plugin.Domain
 		private readonly IModelObject _modelObject
 			= modelObject ?? throw new ArgumentNullException(nameof(modelObject));
 
-		public string Get()
+		public IEnumerable<InterfaceEntry> Get()
 		{
+			List<InterfaceEntry> interfaceEntries = [];
 			Assembly executingAssembly = Assembly.GetExecutingAssembly();
 			AssemblyName[] referencedAssemblies = executingAssembly.GetReferencedAssemblies();
 			List<AssemblyName> interopAssemblies = referencedAssemblies
 				.Where(a => a.FullName.Contains("Interop"))
 				.ToList();
 
-
-			StringBuilder builder = new();
 			if (interopAssemblies is not null)
 			{
 				AssemblyName interopAssembly = interopAssemblies[0];
@@ -31,22 +29,41 @@ namespace RengaLookup.Plugin.Domain
 					.Where(t => t.IsInterface);
 				foreach (Type? @interface in interfaces)
 				{
-					PropertyInfo[] propertyInfos = @interface.GetProperties();
-
 					if (@interface.IsInstanceOfType(_modelObject))
 					{
 						object? castedObject = Convert.ChangeType(_modelObject, @interface);
-						IEnumerable<Data> dataSet = GetInfoFromProperties(castedObject, propertyInfos);
+						PropertyInfo[] propertyInfos = @interface.GetProperties();
+						IEnumerable<Data> propretiesDataSet = GetInfoFromProperties(castedObject, propertyInfos);
+						FieldInfo[] fieldInfos = @interface.GetFields();
+						IEnumerable<Data> fieldsDataSet = GetInfoFromFields(castedObject, fieldInfos);
 
-						builder.AppendLine(@interface.FullName);
+						IEnumerable<Data> value = [.. propretiesDataSet, .. fieldsDataSet];
+						InterfaceEntry interfaceEntry = new()
+						{
+							Name = @interface.Name,
+							Infos = value
+						};
+						interfaceEntries.Add(interfaceEntry);
 					}
 				}
 			}
 
-			return builder.ToString();
+			return interfaceEntries;
 		}
 
-		private IEnumerable<Data> GetInfoFromProperties(
+		private static List<Data> GetInfoFromFields(object obj, FieldInfo[] infos)
+		{
+			List<Data> result = [];
+			foreach (FieldInfo info in infos)
+			{
+				object? value = info.GetValue(obj);
+				result.Add(new FieldData() { Label = info.Name, Value = value });
+			}
+
+			return result;
+		}
+
+		private static List<Data> GetInfoFromProperties(
 			object? obj,
 			PropertyInfo[] infos)
 		{
