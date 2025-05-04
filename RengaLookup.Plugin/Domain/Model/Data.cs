@@ -2,9 +2,8 @@
 {
 	internal abstract class Data
 	{
-		public EntryType Type { get; set; }
-		public string? Label { get; set; }
-		public string? Value { get; set; }
+		public required string? Label { get; init; }
+		public required string? Value { get; init; }
 
 		private protected abstract string GetValueString();
 
