@@ -31,11 +31,10 @@ namespace RengaLookup.Plugin.Domain
 				{
 					if (@interface.IsInstanceOfType(_modelObject))
 					{
-						object? castedObject = Convert.ChangeType(_modelObject, @interface);
 						PropertyInfo[] propertyInfos = @interface.GetProperties();
-						IEnumerable<Data> propretiesDataSet = GetInfoFromProperties(castedObject, propertyInfos);
+						IEnumerable<Data> propretiesDataSet = GetInfoFromProperties(_modelObject, propertyInfos);
 						FieldInfo[] fieldInfos = @interface.GetFields();
-						IEnumerable<Data> fieldsDataSet = GetInfoFromFields(castedObject, fieldInfos);
+						IEnumerable<Data> fieldsDataSet = GetInfoFromFields(_modelObject, fieldInfos);
 
 						IEnumerable<Data> value = [.. propretiesDataSet, .. fieldsDataSet];
 						InterfaceEntry interfaceEntry = new()
