@@ -3,7 +3,7 @@
 	internal abstract class Data
 	{
 		public required string? Label { get; init; }
-		public required string? Value { get; init; }
+		public required object? Value { get; init; }
 
 		private protected abstract string GetValueString();
 

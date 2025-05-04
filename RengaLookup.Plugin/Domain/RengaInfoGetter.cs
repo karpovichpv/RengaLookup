@@ -1,4 +1,5 @@
 ﻿using Renga;
+using RengaLookup.Plugin.Domain.Model;
 using System.Reflection;
 using System.Text;
 
@@ -30,15 +31,33 @@ namespace RengaLookup.Plugin.Domain
 					.Where(t => t.IsInterface);
 				foreach (Type? @interface in interfaces)
 				{
-					// Try to cast using reflection
+					PropertyInfo[] propertyInfos = @interface.GetProperties();
+
 					if (@interface.IsInstanceOfType(_modelObject))
 					{
+						object? castedObject = Convert.ChangeType(_modelObject, @interface);
+						IEnumerable<Data> dataSet = GetInfoFromProperties(castedObject, propertyInfos);
+
 						builder.AppendLine(@interface.FullName);
 					}
 				}
 			}
 
 			return builder.ToString();
+		}
+
+		private IEnumerable<Data> GetInfoFromProperties(
+			object? obj,
+			PropertyInfo[] infos)
+		{
+			List<Data> result = [];
+			foreach (PropertyInfo info in infos)
+			{
+				object? value = info.GetValue(obj);
+				result.Add(new PropertyData() { Label = info.Name, Value = value });
+			}
+
+			return result;
 		}
 	}
 }
