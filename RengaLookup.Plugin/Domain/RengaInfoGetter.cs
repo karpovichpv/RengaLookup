@@ -1,5 +1,6 @@
 ﻿using Renga;
 using RengaLookup.Plugin.Domain.Model;
+using RengaLookup.UI;
 using System.Reflection;
 
 namespace RengaLookup.Plugin.Domain
@@ -11,6 +12,9 @@ namespace RengaLookup.Plugin.Domain
 
 		public IEnumerable<InterfaceEntry> Get()
 		{
+			App app = new();
+			app.MainWindow.Show();
+
 			List<InterfaceEntry> interfaceEntries = [];
 			Assembly executingAssembly = Assembly.GetExecutingAssembly();
 			AssemblyName[] referencedAssemblies = executingAssembly.GetReferencedAssemblies();

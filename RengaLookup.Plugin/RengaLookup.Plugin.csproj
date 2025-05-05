@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	<TargetFramework>net8.0</TargetFramework>
+	<TargetFramework>net8.0-windows</TargetFramework>
 	<ImplicitUsings>enable</ImplicitUsings>
 	<Nullable>enable</Nullable>
 	<PlatformTarget>x64</PlatformTarget>
@@ -9,6 +9,10 @@
 
 	<ItemGroup>
 		<COMFileReference Include="..\..\RengaSDK\tlb\RengaCOMAPI.tlb"></COMFileReference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\RengaLookup.UI\RengaLookup.UI.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

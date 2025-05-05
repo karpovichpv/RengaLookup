@@ -2,6 +2,7 @@
 using RengaLookup.Plugin.Domain;
 using RengaLookup.Plugin.Domain.Model;
 using System.Text;
+using Application = Renga.Application;
 
 namespace RengaLookup.Plugin
 {
