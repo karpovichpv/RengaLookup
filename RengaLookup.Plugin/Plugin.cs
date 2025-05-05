@@ -1,5 +1,7 @@
 ﻿using Renga;
 using RengaLookup.Plugin.Domain;
+using RengaLookup.Plugin.Domain.Model;
+using System.Text;
 
 namespace RengaLookup.Plugin
 {
@@ -73,13 +75,37 @@ namespace RengaLookup.Plugin
 			if (modelObject is not null)
 			{
 				RengaInfoGetter getter = new(modelObject);
-				info = getter.Get();
+				info = ConvertToString(getter.Get());
 			}
 
 			ui.ShowMessageBox(
 				MessageIcon.MessageIcon_Info,
 				title,
 				$"{id}\r\n{info}");
+		}
+
+		private static string ConvertToString(IEnumerable<InterfaceEntry> collection)
+		{
+			StringBuilder builder = new();
+			foreach (InterfaceEntry entry in collection)
+			{
+				builder.AppendLine("--------");
+				builder.AppendLine(entry.Name);
+
+				if (entry.Infos is not null)
+				{
+					foreach (Data data in entry.Infos)
+					{
+						if (data is PropertyData)
+							builder.AppendLine($"Property: {data.Label}, Value: {data.Value}");
+
+						if (data is FieldData)
+							builder.AppendLine($"Field: {data.Label}, Value: {data.Value}");
+					}
+				}
+			}
+
+			return builder.ToString();
 		}
 	}
 }
