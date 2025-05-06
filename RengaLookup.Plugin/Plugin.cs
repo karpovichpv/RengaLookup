@@ -8,9 +8,9 @@ namespace RengaLookup.Plugin
 {
 	public class Plugin : IPlugin
 	{
-		private readonly List<ActionEventSource> _eventSources = [];
+		private readonly List<ActionEventSource> _eventSources = new List<ActionEventSource>();
 
-		private IApplication? _app;
+		private IApplication _app;
 
 		public bool Initialize(string pluginFolder)
 		{
@@ -37,7 +37,7 @@ namespace RengaLookup.Plugin
 		{
 			IAction action = ui.CreateAction();
 			action.ToolTip = "RengaLookup";
-			ActionEventSource source = new(action);
+			ActionEventSource source = new ActionEventSource(action);
 			_eventSources.Add(source);
 			source.Triggered += (sender, arguments) =>
 			{
@@ -63,19 +63,19 @@ namespace RengaLookup.Plugin
 			foreach (int index in array)
 			{
 				IModelObject modelObject = modelObjects.GetById(index);
-				if (modelObject is not null)
+				if (modelObject != null)
 					ShowMessageBox(ui, "Luck", modelObject.Id.ToString(), modelObject);
 				else
 					ShowMessageBox(ui, "Fail", "Object is null", null);
 			}
 		}
 
-		private static void ShowMessageBox(IUI ui, string title, string id, IModelObject? modelObject)
+		private static void ShowMessageBox(IUI ui, string title, string id, IModelObject modelObject)
 		{
 			string info = string.Empty;
-			if (modelObject is not null)
+			if (modelObject != null)
 			{
-				RengaInfoGetter getter = new(modelObject);
+				RengaInfoGetter getter = new RengaInfoGetter(modelObject);
 				info = ConvertToString(getter.Get());
 			}
 
@@ -87,13 +87,13 @@ namespace RengaLookup.Plugin
 
 		private static string ConvertToString(IEnumerable<InterfaceEntry> collection)
 		{
-			StringBuilder builder = new();
+			StringBuilder builder = new StringBuilder();
 			foreach (InterfaceEntry entry in collection)
 			{
 				builder.AppendLine("--------");
 				builder.AppendLine(entry.Name);
 
-				if (entry.Infos is not null)
+				if (entry.Infos != null)
 				{
 					foreach (Data data in entry.Infos)
 					{
