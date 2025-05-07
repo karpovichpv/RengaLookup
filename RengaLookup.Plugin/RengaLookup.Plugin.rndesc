@@ -1,9 +1,9 @@
 ﻿<RengaPlugin>
-	<Name>VisualStylesAndVisibility</Name>
+	<Name>RengaLookup.Plugin</Name>
 	<Version>1.0</Version>
 	<Copyright>Pavel Karpovich</Copyright>
 	<RequiredAPIVersion>2.30</RequiredAPIVersion>
-	<PluginType>net8</PluginType>
-	<PluginFilename>C:\other\mygithub\RengaProjects\RengaLookup\RengaLookup.Plugin\bin\Debug\net8.0-windows\RengaLookup.Plugin.dll</PluginFilename> 
+	<PluginType>net</PluginType>
+	<PluginFilename>C:\other\mygithub\RengaProjects\RengaLookup\RengaLookup.Plugin\bin\Debug\RengaLookup.Plugin.dll</PluginFilename> 
 	<Vendor>Pavel Karpovich</Vendor>
 </RengaPlugin>

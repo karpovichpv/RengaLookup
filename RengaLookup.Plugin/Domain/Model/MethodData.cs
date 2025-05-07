@@ -1,4 +1,7 @@
-﻿namespace RengaLookup.Plugin.Domain.Model
+﻿using RengaLookup.Plugin.Domain.Model;
+using System;
+
+namespace RengaLookup.Plugin.Domain.Model
 {
 	internal class MethodData : Data
 	{

@@ -1,43 +1,84 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
-	<TargetFramework>net48</TargetFramework>
-	<ImplicitUsings>enable</ImplicitUsings>
-<!--<Nullable>enable</Nullable>-->
-	<PlatformTarget>x64</PlatformTarget>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{61988616-95E3-41FA-B82B-A6D1C15C6EBD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RengaLookup.Plugin</RootNamespace>
+    <AssemblyName>RengaLookup.Plugin</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
-
-	<ItemGroup>
-		<COMFileReference Include="..\..\RengaSDK\tlb\RengaCOMAPI.tlb"></COMFileReference>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Reference Include="Renga.NET8.PluginUtility">
-	    <HintPath>..\..\RengaSDK\Net\Renga.NET8.PluginUtility.dll</HintPath>
-	  </Reference>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Update="RengaLookup.Plugin.rndesc">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
-	  <None Update="ico.png">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
-	</ItemGroup>
-
-	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-	<Exec Command="if not exist &quot;$(RENGA_INSTALL_DIR)\Plugins\$(ProjectName)&quot; mkdir &quot;$(RENGA_INSTALL_DIR)\Plugins\$(ProjectName)&quot;" />
-		<Exec Command="copy /Y &quot;$(ProjectDir)$(ProjectName).rndesc&quot; &quot;$(RENGA_INSTALL_DIR)\Plugins\$(ProjectName)\$(ProjectName).rndesc&quot;" />
-	</Target>
-
-	<PropertyGroup>
-		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-	</PropertyGroup>
-
-	<PropertyGroup>
-		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
-		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-	</PropertyGroup>
-
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <COMFileReference Include="..\..\RengaSDK\tlb\RengaCOMAPI.tlb">
+    </COMFileReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\PresentationCore.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\PresentationFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Renga.NET.PluginUtility">
+      <HintPath>..\..\RengaSDK\Net\Renga.NET.PluginUtility.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\WindowsBase.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Domain\Model\Data.cs" />
+    <Compile Include="Domain\Model\FieldData.cs" />
+    <Compile Include="Domain\Model\InterfaceEntry.cs" />
+    <Compile Include="Domain\Model\MethodData.cs" />
+    <Compile Include="Domain\Model\PropertyData.cs" />
+    <Compile Include="Domain\RengaInfoGetter.cs" />
+    <Compile Include="Plugin.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="RengaLookup.Plugin.rndesc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RengaLookup.UI\RengaLookup.UI.csproj">
+      <Project>{80070a4d-510f-4bd2-9023-10600f269959}</Project>
+      <Name>RengaLookup.UI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>if not exist "$(RENGA_INSTALL_DIR)\Plugins\$(ProjectName)" mkdir  "$(RENGA_INSTALL_DIR)\Plugins\$(ProjectName)"
+copy /Y "$(ProjectDir)$(ProjectName).rndesc" "$(RENGA_INSTALL_DIR)\Plugins\$(ProjectName)\$(ProjectName).rndesc"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

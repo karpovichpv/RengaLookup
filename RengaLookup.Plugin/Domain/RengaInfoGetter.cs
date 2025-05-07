@@ -1,28 +1,32 @@
 ﻿using Renga;
 using RengaLookup.Plugin.Domain.Model;
-using RengaLookup.UI;
+using RengaLookup.Plugin.Domain.Model;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace RengaLookup.Plugin.Domain
 {
-	internal class RengaInfoGetter(IModelObject modelObject)
+	internal class RengaInfoGetter
 	{
-		private readonly IModelObject _modelObject
-			= modelObject ?? throw new ArgumentNullException(nameof(modelObject));
+		private readonly IModelObject _modelObject;
+
+		public RengaInfoGetter(IModelObject modelObject)
+		{
+			_modelObject = modelObject ?? throw new ArgumentNullException(nameof(modelObject));
+		}
 
 		public IEnumerable<InterfaceEntry> Get()
 		{
-			App app = new();
-			app.MainWindow.Show();
-
-			List<InterfaceEntry> interfaceEntries = [];
+			var interfaceEntries = new List<InterfaceEntry>();
 			Assembly executingAssembly = Assembly.GetExecutingAssembly();
 			AssemblyName[] referencedAssemblies = executingAssembly.GetReferencedAssemblies();
 			List<AssemblyName> interopAssemblies = referencedAssemblies
 				.Where(a => a.FullName.Contains("Interop"))
 				.ToList();
 
-			if (interopAssemblies is not null)
+			if (interopAssemblies != null)
 			{
 				AssemblyName interopAssembly = interopAssemblies[0];
 				Assembly assembly = Assembly.Load(interopAssembly);
@@ -31,7 +35,7 @@ namespace RengaLookup.Plugin.Domain
 				IEnumerable<Type> interfaces = assembly
 					.GetTypes()
 					.Where(t => t.IsInterface);
-				foreach (Type? @interface in interfaces)
+				foreach (Type @interface in interfaces)
 				{
 					if (@interface.IsInstanceOfType(_modelObject))
 					{
@@ -40,8 +44,10 @@ namespace RengaLookup.Plugin.Domain
 						FieldInfo[] fieldInfos = @interface.GetFields();
 						IEnumerable<Data> fieldsDataSet = GetInfoFromFields(_modelObject, fieldInfos);
 
-						IEnumerable<Data> value = [.. propretiesDataSet, .. fieldsDataSet];
-						InterfaceEntry interfaceEntry = new()
+						var value = new List<Data>();
+						value.AddRange(propretiesDataSet);
+						value.AddRange(fieldsDataSet);
+						InterfaceEntry interfaceEntry = new InterfaceEntry()
 						{
 							Name = @interface.Name,
 							Infos = value
@@ -56,10 +62,10 @@ namespace RengaLookup.Plugin.Domain
 
 		private static List<Data> GetInfoFromFields(object obj, FieldInfo[] infos)
 		{
-			List<Data> result = [];
+			var result = new List<Data>();
 			foreach (FieldInfo info in infos)
 			{
-				object? value = info.GetValue(obj);
+				object value = info.GetValue(obj);
 				result.Add(new FieldData() { Label = info.Name, Value = value });
 			}
 
@@ -67,13 +73,13 @@ namespace RengaLookup.Plugin.Domain
 		}
 
 		private static List<Data> GetInfoFromProperties(
-			object? obj,
+			object obj,
 			PropertyInfo[] infos)
 		{
-			List<Data> result = [];
+			var result = new List<Data>();
 			foreach (PropertyInfo info in infos)
 			{
-				object? value = info.GetValue(obj);
+				object value = info.GetValue(obj);
 				result.Add(new PropertyData() { Label = info.Name, Value = value });
 			}
 

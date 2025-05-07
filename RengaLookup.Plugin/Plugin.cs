@@ -1,6 +1,7 @@
 ﻿using Renga;
 using RengaLookup.Plugin.Domain;
 using RengaLookup.Plugin.Domain.Model;
+using System.Collections.Generic;
 using System.Text;
 using Application = Renga.Application;
 
@@ -36,7 +37,7 @@ namespace RengaLookup.Plugin
 		private IAction CreateChangeViewStyleAction(IUI ui)
 		{
 			IAction action = ui.CreateAction();
-			action.ToolTip = "RengaLookup";
+			action.ToolTip = "RengaLookup2";
 			ActionEventSource source = new ActionEventSource(action);
 			_eventSources.Add(source);
 			source.Triggered += (sender, arguments) =>
@@ -49,6 +50,12 @@ namespace RengaLookup.Plugin
 
 		private void ShowInfoAboutObject(IUI ui)
 		{
+			//UI.App applicationUI = new UI.App();
+			//applicationUI.InitializeComponent();
+
+			UI.MainWindow window = new UI.MainWindow();
+			window.Show();
+
 			if (_app is null)
 				return;
 

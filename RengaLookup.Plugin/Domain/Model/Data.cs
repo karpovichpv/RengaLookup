@@ -2,8 +2,8 @@
 {
 	internal abstract class Data
 	{
-		public required string? Label { get; init; }
-		public required object? Value { get; init; }
+		public string Label { get; set; }
+		public object Value { get; set; }
 
 		private protected abstract string GetValueString();
 
