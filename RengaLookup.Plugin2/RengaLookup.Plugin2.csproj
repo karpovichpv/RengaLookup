@@ -36,6 +36,12 @@
     </COMFileReference>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\PresentationCore.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\PresentationFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Renga.NET.PluginUtility">
       <HintPath>..\..\RengaSDK\Net\Renga.NET.PluginUtility.dll</HintPath>
     </Reference>
@@ -47,6 +53,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\WindowsBase.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
@@ -61,6 +70,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="RengaLookup.Plugin2.rndesc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RengaLookup.UI\RengaLookup.UI.csproj">
+      <Project>{80070a4d-510f-4bd2-9023-10600f269959}</Project>
+      <Name>RengaLookup.UI</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

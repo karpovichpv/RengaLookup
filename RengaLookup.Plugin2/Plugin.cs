@@ -51,6 +51,12 @@ namespace RengaLookup.Plugin2
 
 		private void ShowInfoAboutObject(IUI ui)
 		{
+			//UI.App applicationUI = new UI.App();
+			//applicationUI.InitializeComponent();
+
+			UI.MainWindow window = new UI.MainWindow();
+			window.Show();
+
 			if (_app is null)
 				return;
 
