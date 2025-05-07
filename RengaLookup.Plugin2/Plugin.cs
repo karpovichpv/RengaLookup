@@ -38,7 +38,7 @@ namespace RengaLookup.Plugin2
 		private IAction CreateChangeViewStyleAction(IUI ui)
 		{
 			IAction action = ui.CreateAction();
-			action.ToolTip = "RengaLookup";
+			action.ToolTip = "RengaLookup2";
 			ActionEventSource source = new ActionEventSource(action);
 			_eventSources.Add(source);
 			source.Triggered += (sender, arguments) =>

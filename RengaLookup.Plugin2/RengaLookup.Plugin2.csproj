@@ -60,7 +60,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="RengaLookup.Plugin.rndesc" />
+    <None Include="RengaLookup.Plugin2.rndesc" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>if not exist "$(RENGA_INSTALL_DIR)\Plugins\$(ProjectName)" mkdir  "$(RENGA_INSTALL_DIR)\Plugins\$(ProjectName)"
+copy /Y "$(ProjectDir)$(ProjectName).rndesc" "$(RENGA_INSTALL_DIR)\Plugins\$(ProjectName)\$(ProjectName).rndesc"</PostBuildEvent>
+  </PropertyGroup>
 </Project>
