@@ -97,5 +97,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RengaLookup.Model\RengaLookup.Model.csproj">
+      <Project>{136e64cf-640f-4901-ae2e-e6cc19cb4723}</Project>
+      <Name>RengaLookup.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
