@@ -9,10 +9,12 @@
     Title="MainWindow"
     Width="800"
     Height="450"
+    d:DataContext="{d:DesignInstance viewModel:DesignViewModel,
+                                     IsDesignTimeCreatable=True}"
     mc:Ignorable="d">
-    <Window.DataContext>
+    <!--<Window.DataContext>
         <viewModel:ViewModel />
-    </Window.DataContext>
+    </Window.DataContext>-->
 
     <Grid>
         <Grid.RowDefinitions>

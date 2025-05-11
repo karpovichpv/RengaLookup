@@ -1,15 +1,18 @@
-﻿using System.ComponentModel;
+﻿using RengaLookup.Model;
+using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace RengaLookup.UI.ViewModel
 {
-	public abstract class ViewModelBase : INotifyPropertyChanged
+	public abstract class ViewModelBase : IViewModel
 	{
+
 		public event PropertyChangedEventHandler PropertyChanged;
+		public abstract IEnumerable<IInterfaceInfo> InfoSet { get; set; }
 
 		private protected void RaisePropertyChange(string propertyName)
 		{
-			if (PropertyChanged != null)
-				PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 	}
 }

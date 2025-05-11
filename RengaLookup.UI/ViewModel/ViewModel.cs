@@ -18,7 +18,7 @@ namespace RengaLookup.UI.ViewModel
 		}
 
 		private IEnumerable<IInterfaceInfo> _infoSet;
-		public IEnumerable<IInterfaceInfo> InfoSet
+		public override IEnumerable<IInterfaceInfo> InfoSet
 		{
 			get => _infoSet;
 			set

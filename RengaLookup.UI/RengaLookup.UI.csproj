@@ -175,6 +175,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\Implementations\InterfaceInfo.cs" />
+    <Compile Include="Model\Implementations\Info.cs" />
+    <Compile Include="ViewModel\DesignViewModel.cs" />
+    <Compile Include="ViewModel\IViewModel.cs" />
     <Compile Include="ViewModel\ViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Page Include="MainWindow.xaml">
