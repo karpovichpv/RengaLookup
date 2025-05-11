@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace RengaLookup.UI.ViewModel
 {
-	internal interface IViewModel : INotifyPropertyChanged
+	public interface IViewModel : INotifyPropertyChanged
 	{
 		IEnumerable<IInterfaceInfo> InfoSet { get; set; }
 	}

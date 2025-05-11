@@ -23,7 +23,6 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
-            <RowDefinition />
         </Grid.RowDefinitions>
         <ListBox ItemsSource="{Binding InfoSet}">
             <ListBox.ItemTemplate>

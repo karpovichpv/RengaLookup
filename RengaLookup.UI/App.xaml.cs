@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RengaLookup.UI.ViewModel;
 using System;
 using System.IO;
 using System.Text;
@@ -33,8 +34,9 @@ namespace RengaLookup.UI
 
 		private void ConfigureServices(ServiceCollection serviceCollection)
 		{
-			serviceCollection.AddTransient(typeof(MainWindow));
+			serviceCollection
+				.AddTransient(typeof(MainWindow))
+				.AddSingleton<IViewModel>(new DesignViewModel());
 		}
-
 	}
 }
