@@ -175,6 +175,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\SyntaxTypeToStringConverter.cs" />
     <Compile Include="Model\Implementations\InterfaceInfo.cs" />
     <Compile Include="Model\Implementations\Info.cs" />
     <Compile Include="ViewModel\DesignViewModel.cs" />
