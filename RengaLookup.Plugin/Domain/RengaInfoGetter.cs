@@ -1,6 +1,5 @@
 ﻿using Renga;
-using RengaLookup.Plugin.Domain.Model;
-using RengaLookup.Plugin.Domain.Model;
+using RengaLookup.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +16,9 @@ namespace RengaLookup.Plugin.Domain
 			_modelObject = modelObject ?? throw new ArgumentNullException(nameof(modelObject));
 		}
 
-		public IEnumerable<InterfaceEntry> Get()
+		public IEnumerable<IInterfaceInfo> Get()
 		{
-			var interfaceEntries = new List<InterfaceEntry>();
+			var interfaceEntries = new List<IInterfaceInfo>();
 			Assembly executingAssembly = Assembly.GetExecutingAssembly();
 			AssemblyName[] referencedAssemblies = executingAssembly.GetReferencedAssemblies();
 			List<AssemblyName> interopAssemblies = referencedAssemblies

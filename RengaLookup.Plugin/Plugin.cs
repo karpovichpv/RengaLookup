@@ -1,6 +1,5 @@
 ﻿using Renga;
 using RengaLookup.Plugin.Domain;
-using RengaLookup.Plugin.Domain.Model;
 using System.Collections.Generic;
 using System.Text;
 using Application = Renga.Application;
