@@ -29,7 +29,7 @@
         <ListBox ItemsSource="{Binding InfoSet}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Vertical">
                         <Label Content="{Binding Name}" />
                         <ListBox ItemsSource="{Binding InfoSet}">
                             <ListBox.ItemTemplate>

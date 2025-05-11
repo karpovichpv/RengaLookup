@@ -20,20 +20,31 @@ namespace RengaLookup.UI.ViewModel
 		{
 			return new List<IInterfaceInfo>
 			{
-				new InterfaceInfo()
-				{
-					Name = "IInterface name",
-					InfoSet = new List<IInfo>()
+				GetInterfaceInfo("1"),
+				GetInterfaceInfo("2"),
+			};
+		}
+
+		private static InterfaceInfo GetInterfaceInfo(string n)
+		{
+			return new InterfaceInfo()
+			{
+				Name = $"IInterface name {n}",
+				InfoSet = new List<IInfo>()
 					{
 						new Info()
 						{
-							Name = "Some name",
+							Name = $"Some name {1}",
 							Type = SyntaxType.Property,
-							Value = "Value"
+							Value = $"Value {1}"
+						},
+						new Info()
+						{
+							Name = $"Some name {2}",
+							Type = SyntaxType.Property,
+							Value = $"Value {2}"
 						}
 					}
-				}
-
 			};
 		}
 	}
