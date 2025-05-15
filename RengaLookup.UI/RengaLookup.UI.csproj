@@ -176,8 +176,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\SyntaxTypeToStringConverter.cs" />
-    <Compile Include="Model\Implementations\InterfaceInfo.cs" />
-    <Compile Include="Model\Implementations\Info.cs" />
     <Compile Include="ViewModel\DesignViewModel.cs" />
     <Compile Include="ViewModel\IViewModel.cs" />
     <Compile Include="ViewModel\ViewModel.cs" />
@@ -231,6 +229,9 @@
       <Project>{136e64cf-640f-4901-ae2e-e6cc19cb4723}</Project>
       <Name>RengaLookup.Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

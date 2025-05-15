@@ -1,5 +1,5 @@
-﻿using RengaLookup.Model;
-using RengaLookup.UI.Model.Implementations;
+﻿using RengaLookup.Model.Contracts;
+using RengaLookup.Model.Implementations;
 using System.Collections.Generic;
 
 namespace RengaLookup.UI.ViewModel
@@ -25,7 +25,7 @@ namespace RengaLookup.UI.ViewModel
 			};
 		}
 
-		private static InterfaceInfo GetInterfaceInfo(string n)
+		private static IInterfaceInfo GetInterfaceInfo(string n)
 		{
 			return new InterfaceInfo()
 			{

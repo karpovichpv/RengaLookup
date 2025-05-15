@@ -1,4 +1,4 @@
-﻿using RengaLookup.Model;
+﻿using RengaLookup.Model.Contracts;
 using System.Collections.Generic;
 using System.ComponentModel;
 

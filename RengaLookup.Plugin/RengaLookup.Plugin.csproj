@@ -58,11 +58,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Domain\Model\Data.cs" />
-    <Compile Include="Domain\Model\FieldData.cs" />
-    <Compile Include="Domain\Model\InterfaceEntry.cs" />
-    <Compile Include="Domain\Model\MethodData.cs" />
-    <Compile Include="Domain\Model\PropertyData.cs" />
     <Compile Include="Domain\RengaInfoGetter.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -72,6 +67,10 @@
     <None Include="RengaLookup.Plugin.rndesc" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RengaLookup.Model\RengaLookup.Model.csproj">
+      <Project>{136E64CF-640F-4901-AE2E-E6CC19CB4723}</Project>
+      <Name>RengaLookup.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RengaLookup.UI\RengaLookup.UI.csproj">
       <Project>{80070a4d-510f-4bd2-9023-10600f269959}</Project>
       <Name>RengaLookup.UI</Name>
