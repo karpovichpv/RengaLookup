@@ -1,6 +1,7 @@
 ﻿using Renga;
 using RengaLookup.Model.Contracts;
 using RengaLookup.Plugin.Domain;
+using RengaLookup.UI.ViewModel;
 using System.Collections.Generic;
 using System.Text;
 using Application = Renga.Application;
@@ -53,8 +54,8 @@ namespace RengaLookup.Plugin
 			//UI.App applicationUI = new UI.App();
 			//	applicationUI.Run();
 
-			//UI.MainWindow window = new UI.MainWindow();
-			//window.Show();
+			UI.MainWindow window = new UI.MainWindow(new DesignViewModel());
+			window.Show();
 
 			if (_app is null)
 				return;
