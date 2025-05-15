@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace RengaLookup.Model
+namespace RengaLookup.Model.Contracts
 {
 	public interface IInterfaceInfo
 	{

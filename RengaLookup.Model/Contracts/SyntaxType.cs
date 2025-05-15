@@ -1,4 +1,4 @@
-﻿namespace RengaLookup.Model
+﻿namespace RengaLookup.Model.Contracts
 {
 	public enum SyntaxType
 	{

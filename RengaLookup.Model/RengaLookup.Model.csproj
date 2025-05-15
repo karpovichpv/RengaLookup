@@ -41,10 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IInterfaceInfo.cs" />
-    <Compile Include="IInfo.cs" />
+    <Compile Include="Contracts\IInterfaceInfo.cs" />
+    <Compile Include="Contracts\IInfo.cs" />
+    <Compile Include="Implementations\Info.cs" />
+    <Compile Include="Implementations\InterfaceInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SyntaxType.cs" />
+    <Compile Include="Contracts\SyntaxType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
