@@ -1,4 +1,4 @@
-﻿using RengaLookup.Model;
+﻿using RengaLookup.Model.Contracts;
 using System;
 using System.Globalization;
 using System.Windows.Data;

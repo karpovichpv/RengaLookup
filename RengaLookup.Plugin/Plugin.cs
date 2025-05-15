@@ -1,4 +1,5 @@
 ﻿using Renga;
+using RengaLookup.Model.Contracts;
 using RengaLookup.Plugin.Domain;
 using System.Collections.Generic;
 using System.Text;
@@ -50,10 +51,10 @@ namespace RengaLookup.Plugin
 		private void ShowInfoAboutObject(IUI ui)
 		{
 			//UI.App applicationUI = new UI.App();
-			//applicationUI.InitializeComponent();
+			//	applicationUI.Run();
 
-			UI.MainWindow window = new UI.MainWindow();
-			window.Show();
+			//UI.MainWindow window = new UI.MainWindow();
+			//window.Show();
 
 			if (_app is null)
 				return;
@@ -91,23 +92,23 @@ namespace RengaLookup.Plugin
 				$"{id}\r\n{info}");
 		}
 
-		private static string ConvertToString(IEnumerable<InterfaceEntry> collection)
+		private static string ConvertToString(IEnumerable<IInterfaceInfo> collection)
 		{
 			StringBuilder builder = new StringBuilder();
-			foreach (InterfaceEntry entry in collection)
+			foreach (IInterfaceInfo entry in collection)
 			{
 				builder.AppendLine("--------");
 				builder.AppendLine(entry.Name);
 
-				if (entry.Infos != null)
+				if (entry.InfoSet != null)
 				{
-					foreach (Data data in entry.Infos)
+					foreach (IInfo data in entry.InfoSet)
 					{
-						if (data is PropertyData)
-							builder.AppendLine($"Property: {data.Label}, Value: {data.Value}");
+						if (data.Type is SyntaxType.Property)
+							builder.AppendLine($"Property: {data.Name}, Value: {data.Value}");
 
-						if (data is FieldData)
-							builder.AppendLine($"Field: {data.Label}, Value: {data.Value}");
+						if (data.Type is SyntaxType.Field)
+							builder.AppendLine($"Field: {data.Name}, Value: {data.Value}");
 					}
 				}
 			}

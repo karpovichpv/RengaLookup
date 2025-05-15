@@ -1,5 +1,6 @@
 ﻿using Renga;
-using RengaLookup.Model;
+using RengaLookup.Model.Contracts;
+using RengaLookup.Model.Implementations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,17 +40,17 @@ namespace RengaLookup.Plugin.Domain
 					if (@interface.IsInstanceOfType(_modelObject))
 					{
 						PropertyInfo[] propertyInfos = @interface.GetProperties();
-						IEnumerable<Data> propretiesDataSet = GetInfoFromProperties(_modelObject, propertyInfos);
+						IEnumerable<IInfo> propretiesDataSet = GetInfoFromProperties(_modelObject, propertyInfos);
 						FieldInfo[] fieldInfos = @interface.GetFields();
-						IEnumerable<Data> fieldsDataSet = GetInfoFromFields(_modelObject, fieldInfos);
+						IEnumerable<IInfo> fieldsDataSet = GetInfoFromFields(_modelObject, fieldInfos);
 
-						var value = new List<Data>();
+						var value = new List<IInfo>();
 						value.AddRange(propretiesDataSet);
 						value.AddRange(fieldsDataSet);
-						InterfaceEntry interfaceEntry = new InterfaceEntry()
+						IInterfaceInfo interfaceEntry = new InterfaceInfo()
 						{
 							Name = @interface.Name,
-							Infos = value
+							InfoSet = value
 						};
 						interfaceEntries.Add(interfaceEntry);
 					}
@@ -59,27 +60,27 @@ namespace RengaLookup.Plugin.Domain
 			return interfaceEntries;
 		}
 
-		private static List<Data> GetInfoFromFields(object obj, FieldInfo[] infos)
+		private static List<IInfo> GetInfoFromFields(object obj, FieldInfo[] infos)
 		{
-			var result = new List<Data>();
+			var result = new List<IInfo>();
 			foreach (FieldInfo info in infos)
 			{
 				object value = info.GetValue(obj);
-				result.Add(new FieldData() { Label = info.Name, Value = value });
+				result.Add(new Info() { Name = info.Name, Value = value.ToString(), Type = SyntaxType.Field });
 			}
 
 			return result;
 		}
 
-		private static List<Data> GetInfoFromProperties(
+		private static List<IInfo> GetInfoFromProperties(
 			object obj,
 			PropertyInfo[] infos)
 		{
-			var result = new List<Data>();
+			var result = new List<IInfo>();
 			foreach (PropertyInfo info in infos)
 			{
 				object value = info.GetValue(obj);
-				result.Add(new PropertyData() { Label = info.Name, Value = value });
+				result.Add(new Info() { Name = info.Name, Type = SyntaxType.Property, Value = value.ToString() });
 			}
 
 			return result;
