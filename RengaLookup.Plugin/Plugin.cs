@@ -87,11 +87,6 @@ namespace RengaLookup.Plugin
 				UI.MainWindow window = new UI.MainWindow(new DesignViewModel(collection));
 				window.Show();
 			}
-
-			ui.ShowMessageBox(
-				MessageIcon.MessageIcon_Info,
-				title,
-				$"{id}\r\n{info}");
 		}
 
 		private static string ConvertToString(IEnumerable<IInterfaceInfo> collection)
