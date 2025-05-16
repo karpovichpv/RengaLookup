@@ -6,15 +6,27 @@ namespace RengaLookup.UI.ViewModel
 {
 	public class DesignViewModel : ViewModelBase
 	{
+		public DesignViewModel(IEnumerable<IInterfaceInfo> infoSet = null)
+		{
+			if (infoSet is null)
+				_infoSet = GetInfoSet();
+			else
+				_infoSet = infoSet;
+		}
+
+		private IEnumerable<IInterfaceInfo> _infoSet;
 		public override IEnumerable<IInterfaceInfo> InfoSet
 		{
-			get => GetInfoSet();
+			get
+			{
+				return _infoSet;
+			}
 			set
 			{
+				_infoSet = value;
 				RaisePropertyChange(nameof(InfoSet));
 			}
 		}
-
 
 		private IEnumerable<IInterfaceInfo> GetInfoSet()
 		{

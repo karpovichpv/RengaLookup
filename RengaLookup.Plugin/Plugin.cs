@@ -54,8 +54,6 @@ namespace RengaLookup.Plugin
 			//UI.App applicationUI = new UI.App();
 			//	applicationUI.Run();
 
-			UI.MainWindow window = new UI.MainWindow(new DesignViewModel());
-			window.Show();
 
 			if (_app is null)
 				return;
@@ -84,7 +82,10 @@ namespace RengaLookup.Plugin
 			if (modelObject != null)
 			{
 				RengaInfoGetter getter = new RengaInfoGetter(modelObject);
-				info = ConvertToString(getter.Get());
+				IEnumerable<IInterfaceInfo> collection = getter.Get();
+				info = ConvertToString(collection);
+				UI.MainWindow window = new UI.MainWindow(new DesignViewModel(collection));
+				window.Show();
 			}
 
 			ui.ShowMessageBox(
