@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using RengaLookup.UIControl.ViewModel;
+using System.Windows;
 
 namespace RengaLookup.UIControl
 {
@@ -9,6 +10,12 @@ namespace RengaLookup.UIControl
 	{
 		public PluginWindow()
 		{
+			InitializeComponent();
+		}
+
+		public PluginWindow(IViewModel viewModel)
+		{
+			DataContext = viewModel;
 			InitializeComponent();
 		}
 	}

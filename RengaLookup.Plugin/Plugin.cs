@@ -2,6 +2,7 @@
 using RengaLookup.Model.Contracts;
 using RengaLookup.Plugin.Domain;
 using RengaLookup.UIControl;
+using RengaLookup.UIControl.ViewModel;
 using System.Collections.Generic;
 using System.Text;
 using Application = Renga.Application;
@@ -85,7 +86,7 @@ namespace RengaLookup.Plugin
 				IEnumerable<IInterfaceInfo> collection = getter.Get();
 				info = ConvertToString(collection);
 
-				var control = new PluginWindow();
+				var control = new PluginWindow(new DesignViewModel(collection));
 				control.Show();
 			}
 		}
