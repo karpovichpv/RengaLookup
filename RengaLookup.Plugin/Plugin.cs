@@ -4,7 +4,6 @@ using RengaLookup.Plugin.Domain;
 using RengaLookup.UIControl;
 using RengaLookup.UIControl.ViewModel;
 using System.Collections.Generic;
-using System.Text;
 using Application = Renga.Application;
 
 namespace RengaLookup.Plugin
@@ -52,10 +51,6 @@ namespace RengaLookup.Plugin
 
 		private void ShowInfoAboutObject(IUI ui)
 		{
-			//UI.App applicationUI = new UI.App();
-			//	applicationUI.Run();
-
-
 			if (_app is null)
 				return;
 
@@ -84,35 +79,10 @@ namespace RengaLookup.Plugin
 			{
 				RengaInfoGetter getter = new RengaInfoGetter(modelObject);
 				IEnumerable<IInterfaceInfo> collection = getter.Get();
-				info = ConvertToString(collection);
 
 				var control = new PluginWindow(new DesignViewModel(collection));
 				control.Show();
 			}
-		}
-
-		private static string ConvertToString(IEnumerable<IInterfaceInfo> collection)
-		{
-			StringBuilder builder = new StringBuilder();
-			foreach (IInterfaceInfo entry in collection)
-			{
-				builder.AppendLine("--------");
-				builder.AppendLine(entry.Name);
-
-				if (entry.InfoSet != null)
-				{
-					foreach (IInfo data in entry.InfoSet)
-					{
-						if (data.Type is SyntaxType.Property)
-							builder.AppendLine($"Property: {data.Name}, Value: {data.Value}");
-
-						if (data.Type is SyntaxType.Field)
-							builder.AppendLine($"Field: {data.Name}, Value: {data.Value}");
-					}
-				}
-			}
-
-			return builder.ToString();
 		}
 	}
 }
