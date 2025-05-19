@@ -71,9 +71,9 @@
       <Project>{136E64CF-640F-4901-AE2E-E6CC19CB4723}</Project>
       <Name>RengaLookup.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RengaLookup.UI\RengaLookup.UI.csproj">
-      <Project>{80070a4d-510f-4bd2-9023-10600f269959}</Project>
-      <Name>RengaLookup.UI</Name>
+    <ProjectReference Include="..\RengaLookup.UIControl\RengaLookup.UIControl.csproj">
+      <Project>{c83b7f47-2ba8-4efe-b450-28541f10c7c6}</Project>
+      <Name>RengaLookup.UIControl</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
