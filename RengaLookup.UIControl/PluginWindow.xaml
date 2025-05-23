@@ -13,7 +13,7 @@
                                      IsDesignTimeCreatable=True}"
     mc:Ignorable="d">
     <Window.Resources>
-        <converter:SyntaxTypeToStringConverter x:Key="SyntaxTypeToStringConverter" />
+        <ResourceDictionary Source="/Resources/WindowResources.xaml" />
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -23,7 +23,7 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Vertical">
-                        <Label Content="{Binding Name}" />
+                        <Label Content="{Binding Name}" Style="{StaticResource CustomLabelStyle}" />
                         <ListBox ItemsSource="{Binding InfoSet}">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
