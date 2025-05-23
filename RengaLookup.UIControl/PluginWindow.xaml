@@ -13,7 +13,7 @@
                                      IsDesignTimeCreatable=True}"
     mc:Ignorable="d">
     <Window.Resources>
-        <ResourceDictionary Source="/Resources/WindowResources.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Resources/WindowResources.xaml" />
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
