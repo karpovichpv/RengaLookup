@@ -7,19 +7,24 @@
     xmlns:local="clr-namespace:RengaLookup.UIControl.ViewModel"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="clr-namespace:RengaLookup.UIControl.ViewModel"
+    Title="RengaLookup"
     Width="800"
     Height="450"
     d:DataContext="{d:DesignInstance viewModel:DesignViewModel,
                                      IsDesignTimeCreatable=True}"
+    ScrollViewer.CanContentScroll="False"
     mc:Ignorable="d">
     <Window.Resources>
         <ResourceDictionary Source="pack://application:,,,/Resources/WindowResources.xaml" />
     </Window.Resources>
-    <Grid>
+    <Grid ScrollViewer.CanContentScroll="False">
         <Grid.RowDefinitions>
             <RowDefinition />
         </Grid.RowDefinitions>
-        <ListBox HorizontalAlignment="Stretch" ItemsSource="{Binding InfoSet}">
+        <ListBox
+            HorizontalAlignment="Stretch"
+            ItemsSource="{Binding InfoSet}"
+            ScrollViewer.CanContentScroll="False">
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -27,10 +32,10 @@
             </ListBox.ItemContainerStyle>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
+                    <Grid ScrollViewer.CanContentScroll="False">
                         <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
                         <Label
                             Grid.Row="0"
@@ -39,19 +44,33 @@
                         <ListBox
                             Grid.Row="1"
                             HorizontalContentAlignment="Stretch"
-                            ItemsSource="{Binding InfoSet}">
+                            ItemsSource="{Binding InfoSet}"
+                            ScrollViewer.CanContentScroll="False"
+                            ScrollViewer.VerticalScrollBarVisibility="Disabled">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <Grid Width="Auto">
+                                    <Grid Width="Auto" ScrollViewer.CanContentScroll="False">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition />
                                             <ColumnDefinition />
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
 
-                                        <TextBlock Grid.Column="0" Text="{Binding Name}" />
-                                        <TextBlock Grid.Column="1" Text="{Binding Type, Converter={StaticResource SyntaxTypeToStringConverter}}" />
-                                        <TextBlock Grid.Column="2" Text="{Binding Value}" />
+                                        <TextBox
+                                            Grid.Column="0"
+                                            IsReadOnly="True"
+                                            Text="{Binding Name}" />
+                                        <TextBox
+                                            Grid.Column="1"
+                                            IsReadOnly="True"
+                                            Text="{Binding Type, Converter={StaticResource SyntaxTypeToStringConverter}}" />
+                                        <TextBox
+                                            Grid.Column="2"
+                                            IsReadOnly="True"
+                                            Text="{Binding Value}" />
                                     </Grid>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
