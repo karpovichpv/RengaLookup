@@ -19,23 +19,44 @@
         <Grid.RowDefinitions>
             <RowDefinition />
         </Grid.RowDefinitions>
-        <ListBox ItemsSource="{Binding InfoSet}">
+        <ListBox HorizontalAlignment="Stretch" ItemsSource="{Binding InfoSet}">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </ListBox.ItemContainerStyle>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Vertical">
-                        <Label Content="{Binding Name}" Style="{StaticResource CustomLabelStyle}" />
-                        <ListBox ItemsSource="{Binding InfoSet}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Label
+                            Grid.Row="0"
+                            Content="{Binding Name}"
+                            Style="{StaticResource CustomLabelStyle}" />
+                        <ListBox
+                            Grid.Row="1"
+                            HorizontalContentAlignment="Stretch"
+                            ItemsSource="{Binding InfoSet}">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Label Content="{Binding Name}" />
-                                        <Label Content="{Binding Type, Converter={StaticResource SyntaxTypeToStringConverter}}" />
-                                        <Label Content="{Binding Value}" />
-                                    </StackPanel>
+                                    <Grid Width="Auto">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock Grid.Column="0" Text="{Binding Name}" />
+                                        <TextBlock Grid.Column="1" Text="{Binding Type, Converter={StaticResource SyntaxTypeToStringConverter}}" />
+                                        <TextBlock Grid.Column="2" Text="{Binding Value}" />
+                                    </Grid>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-                    </StackPanel>
+                    </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
