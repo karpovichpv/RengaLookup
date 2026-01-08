@@ -4,8 +4,19 @@
     xmlns:converter="clr-namespace:RengaLookup.Plugin2.View.Converters">
 
     <converter:SyntaxTypeToStringConverter x:Key="SyntaxTypeToStringConverter" />
-    <Style x:Key="CustomLabelStyle" TargetType="Label">
-        <Setter Property="Foreground" Value="Blue" />
-        <Setter Property="FontWeight" Value="Bold" />
+    <Style x:Key="ViewInfoTextBox" TargetType="TextBox">
+        <Setter Property="Foreground" Value="Black" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsMainHeader}" Value="True">
+                <Setter Property="Foreground" Value="Green" />
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="Grid.ColumnSpan" Value="2" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsSubHeader}" Value="True">
+                <Setter Property="Foreground" Value="Gray" />
+                <Setter Property="FontStyle" Value="Italic" />
+                <Setter Property="Grid.ColumnSpan" Value="2" />
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
 </ResourceDictionary>

@@ -17,14 +17,11 @@
     <Window.Resources>
         <ResourceDictionary Source="pack://application:,,,/Resources/WindowResources.xaml" />
     </Window.Resources>
-    <Grid ScrollViewer.CanContentScroll="False">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
         </Grid.RowDefinitions>
-        <ListBox
-            HorizontalAlignment="Stretch"
-            ItemsSource="{Binding InfoSet}"
-            ScrollViewer.CanContentScroll="False">
+        <ListBox HorizontalAlignment="Stretch" ItemsSource="{Binding InfoCollection}">
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -32,49 +29,22 @@
             </ListBox.ItemContainerStyle>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid ScrollViewer.CanContentScroll="False">
+                    <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
+                            <RowDefinition />
                         </Grid.RowDefinitions>
-                        <Label
-                            Grid.Row="0"
-                            Content="{Binding Name}"
-                            Style="{StaticResource CustomLabelStyle}" />
-                        <ListBox
-                            Grid.Row="1"
-                            HorizontalContentAlignment="Stretch"
-                            ItemsSource="{Binding InfoSet}"
-                            ScrollViewer.CanContentScroll="False"
-                            ScrollViewer.VerticalScrollBarVisibility="Disabled">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid Width="Auto" ScrollViewer.CanContentScroll="False">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="*" />
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition />
-                                            <ColumnDefinition />
-                                            <ColumnDefinition />
-                                        </Grid.ColumnDefinitions>
-
-                                        <TextBox
-                                            Grid.Column="0"
-                                            IsReadOnly="True"
-                                            Text="{Binding Name}" />
-                                        <TextBox
-                                            Grid.Column="1"
-                                            IsReadOnly="True"
-                                            Text="{Binding Type, Converter={StaticResource SyntaxTypeToStringConverter}}" />
-                                        <TextBox
-                                            Grid.Column="2"
-                                            IsReadOnly="True"
-                                            Text="{Binding Value}" />
-                                    </Grid>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBox
+                            Grid.Column="0"
+                            Style="{StaticResource ViewInfoTextBox}"
+                            Text="{Binding Name}" />
+                        <TextBox
+                            Grid.Column="1"
+                            Style="{StaticResource ViewInfoTextBox}"
+                            Text="{Binding Value}" />
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>

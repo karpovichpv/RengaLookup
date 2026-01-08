@@ -25,5 +25,7 @@ namespace RengaLookup.Plugin2.ViewModels
                 RaisePropertyChange(nameof(InfoSet));
             }
         }
+
+        public override IEnumerable<ViewInfo> InfoCollection { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 }
