@@ -41,7 +41,7 @@ namespace RengaLookup.Plugin2.Domain
                         IEnumerable<IInfo> propretiesDataSet = GetInfoFromProperties(_modelObject, propertyInfos);
                         FieldInfo[] fieldInfos = @interface.GetFields();
                         IEnumerable<IInfo> fieldsDataSet = GetInfoFromFields(_modelObject, fieldInfos);
-                        MethodInfo[] methodInfos = @interface.GetMethods();
+                        MethodInfo[] methodInfos = @interface.GetMethods(BindingFlags.Public);
                         IEnumerable<IInfo> methodDataSet = GetInfoFromMethods(_modelObject, methodInfos);
 
                         var value = new List<IInfo>();
