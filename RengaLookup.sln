@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RengaLookup.Model", "RengaL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RengaLookup.UIControl", "RengaLookup.UIControl\RengaLookup.UIControl.csproj", "{C83B7F47-2BA8-4EFE-B450-28541F10C7C6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RengaLookup.Plugin2", "RengaLookup.Plugin2\RengaLookup.Plugin2.csproj", "{CFA00C54-E590-D86C-AFB6-06EFB8B2FCB4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{C83B7F47-2BA8-4EFE-B450-28541F10C7C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C83B7F47-2BA8-4EFE-B450-28541F10C7C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C83B7F47-2BA8-4EFE-B450-28541F10C7C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFA00C54-E590-D86C-AFB6-06EFB8B2FCB4}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{CFA00C54-E590-D86C-AFB6-06EFB8B2FCB4}.Debug|Any CPU.Build.0 = Debug|x64
+		{CFA00C54-E590-D86C-AFB6-06EFB8B2FCB4}.Release|Any CPU.ActiveCfg = Release|x64
+		{CFA00C54-E590-D86C-AFB6-06EFB8B2FCB4}.Release|Any CPU.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -76,6 +76,7 @@
       <Name>RengaLookup.UIControl</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if not exist "$(RENGA_INSTALL_DIR)\Plugins\$(ProjectName)" mkdir  "$(RENGA_INSTALL_DIR)\Plugins\$(ProjectName)"
