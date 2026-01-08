@@ -6,49 +6,85 @@
  */
 
 using Renga;
+using RengaLookup.Plugin2.Domain;
+using RengaLookup.Plugin2.Model.Contracts;
+using RengaLookup.Plugin2.View;
+using RengaLookup.Plugin2.ViewModels;
 
 namespace Net8PluginWithWPF
 {
-  public class Net8PluginWithWPF : Renga.IPlugin
-  {
-    private Renga.IApplication m_app;
-    private readonly List<Renga.ActionEventSource> m_eventSources = new List<Renga.ActionEventSource>();
-
-    public bool Initialize(string pluginFolder)
+    public class Net8PluginWithWPF : Renga.IPlugin
     {
-      m_app = new Renga.Application();
-      var ui = m_app.UI;
-      var panelExtension = ui.CreateUIPanelExtension();
+        private Renga.IApplication _app;
+        private readonly List<Renga.ActionEventSource> _eventSources = new List<Renga.ActionEventSource>();
 
-      panelExtension.AddToolButton(CreateAction(ui));
+        public bool Initialize(string pluginFolder)
+        {
+            _app = new Renga.Application();
+            var ui = _app.UI;
+            var panelExtension = ui.CreateUIPanelExtension();
 
-      ui.AddExtensionToPrimaryPanel(panelExtension);
+            panelExtension.AddToolButton(CreateAction(ui));
 
-      return true;
+            ui.AddExtensionToPrimaryPanel(panelExtension);
+
+            return true;
+        }
+
+        public void Stop()
+        {
+            foreach (var eventSource in _eventSources)
+                eventSource.Dispose();
+
+            _eventSources.Clear();
+        }
+
+        public IAction CreateAction(IUI ui)
+        {
+            var action = ui.CreateAction();
+            action.DisplayName = "Renga Lookup 2";
+
+            var events = new Renga.ActionEventSource(action);
+            events.Triggered += (s, e) =>
+            {
+                ShowInfoAboutObject();
+            };
+            _eventSources.Add(events);
+
+            return action;
+        }
+
+        private void ShowInfoAboutObject()
+        {
+            if (_app is null)
+                return;
+
+            IModel model = _app.Project.Model;
+            if (model is null)
+                return;
+
+            ISelection selection = _app.Selection;
+            int[] array = (int[])selection.GetSelectedObjects();
+
+            IModelObjectCollection modelObjects = model.GetObjects();
+            foreach (int index in array)
+            {
+                IModelObject modelObject = modelObjects.GetById(index);
+                if (modelObject != null)
+                    ShowMessageBox(modelObject);
+            }
+        }
+
+        private static void ShowMessageBox(IModelObject modelObject)
+        {
+            if (modelObject != null)
+            {
+                var getter = new RengaInfoGetter(modelObject);
+                IEnumerable<IInterfaceInfo> collection = getter.Get();
+
+                var control = new PluginWindow(new DesignViewModel(collection));
+                control.Show();
+            }
+        }
     }
-
-    public void Stop()
-    {
-      foreach (var eventSource in m_eventSources)
-        eventSource.Dispose();
-
-      m_eventSources.Clear();
-    }
-
-    public IAction CreateAction(IUI ui)
-    {
-      var action = ui.CreateAction();
-      action.DisplayName = "Net8 plugin with WPF";
-
-      var events = new Renga.ActionEventSource(action);
-      events.Triggered += (s, e) =>
-      {
-        CustomWindow window = new CustomWindow();
-        window.Show();
-      };
-      m_eventSources.Add(events);
-
-      return action;
-    }
-  }
 }

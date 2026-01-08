@@ -19,9 +19,17 @@
   </COMFileReference>
  </ItemGroup>
  <ItemGroup>
+   <EmbeddedResource Include="Resources\BuildDate.txt" />
+ </ItemGroup>
+ <ItemGroup>
    <None Update="RengaLookup.Plugin2.rndesc">
      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
    </None>
+ </ItemGroup>
+ <ItemGroup>
+   <Compile Update="View\PluginWindow.xaml.cs">
+     <SubType>Code</SubType>
+   </Compile>
  </ItemGroup>
 
 </Project>
