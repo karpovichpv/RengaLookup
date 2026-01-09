@@ -75,7 +75,7 @@ namespace RengaLookup.Plugin2
                 var collector = new InfoCollector(modelObject);
                 IEnumerable<IInterfaceInfo> collection = collector.Get();
 
-                var control = new PluginWindow(new DesignViewModel(modelObject, collection));
+                var control = new PluginWindow(new ViewModel(modelObject, collection));
                 control.Show();
             }
         }
