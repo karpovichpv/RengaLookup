@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:RengaLookup.Plugin2.ViewModels"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:userControl="clr-namespace:RengaLookup.Plugin2.View.UserControls"
     xmlns:viewModel="clr-namespace:RengaLookup.Plugin2.ViewModels"
     Title="{Binding Title}"
     Width="800"
@@ -15,15 +16,25 @@
     ScrollViewer.CanContentScroll="False"
     mc:Ignorable="d">
     <Window.Resources>
-        <ResourceDictionary Source="pack://application:,,,/Resources/WindowResources.xaml" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/RengaLookup.Plugin2;component/Resources/WindowResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+        <userControl:SelectedObjectsControl Grid.Row="0" Grid.Column="0" />
         <ListBox
             Grid.Row="0"
+            Grid.Column="1"
             HorizontalAlignment="Stretch"
             ItemsSource="{Binding InfoCollection}">
             <ListBox.ItemContainerStyle>
