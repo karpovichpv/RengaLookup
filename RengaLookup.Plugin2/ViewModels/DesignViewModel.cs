@@ -13,18 +13,11 @@ namespace RengaLookup.Plugin2.ViewModels
             _infoCollection = GetInfoCollection();
         }
 
-        public DesignViewModel(IEnumerable<IInterfaceInfo> infoSet = null)
+        public DesignViewModel(object currentObject, IEnumerable<IInterfaceInfo> infoSet)
         {
-            if (infoSet is null)
-            {
-                _infoSet = GetInfoSet();
-                _infoCollection = GetInfoCollection();
-            }
-            else
-            {
-                _infoSet = infoSet;
-                _infoCollection = ViewInfoCollectionGetter.Get(infoSet);
-            }
+            CurrentObject = currentObject;
+            _infoSet = infoSet;
+            _infoCollection = ViewInfoCollectionGetter.Get(infoSet);
         }
 
         private static IEnumerable<ViewInfo> GetInfoCollection()
@@ -83,6 +76,8 @@ namespace RengaLookup.Plugin2.ViewModels
                 RaisePropertyChange(nameof(InfoSet));
             }
         }
+
+        public override object CurrentObject { get; }
 
         private IEnumerable<IInterfaceInfo> GetInfoSet()
         {

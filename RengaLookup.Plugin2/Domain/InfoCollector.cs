@@ -6,11 +6,11 @@ using System.Reflection;
 
 namespace RengaLookup.Plugin2.Domain
 {
-    internal class RengaInfoGetter
+    internal class InfoCollector
     {
         private readonly IModelObject _modelObject;
 
-        public RengaInfoGetter(IModelObject modelObject)
+        public InfoCollector(IModelObject modelObject)
         {
             _modelObject = modelObject ?? throw new ArgumentNullException(nameof(modelObject));
         }

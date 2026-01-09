@@ -10,6 +10,7 @@ namespace RengaLookup.Plugin2.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
         public abstract IEnumerable<IInterfaceInfo> InfoSet { get; set; }
         public abstract IEnumerable<ViewInfo> InfoCollection { get; set; }
+        public abstract object CurrentObject { get; }
         public string Title => TitleGetter.GetTitle(GetType());
 
         private protected void RaisePropertyChange(string propertyName)
