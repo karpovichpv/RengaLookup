@@ -70,7 +70,7 @@
             Width="150"
             Height="40"
             Margin="5"
-            Command="{Binding SnoopSelectedObject}"
+            Command="{Binding GetSelectedObjects}"
             Content="GetInfo" />
     </Grid>
 </Window>

@@ -11,6 +11,8 @@ namespace RengaLookup.Plugin2.ViewModels
 {
     public class ViewModel : ViewModelBase
     {
+        private readonly SelectedObjectsGetter _selectedObjectsGetter;
+
         public ViewModel()
         {
             _infoCollection = DesignTimeInfoGetter.GetInfoCollection();
@@ -19,6 +21,7 @@ namespace RengaLookup.Plugin2.ViewModels
 
         public ViewModel(object currentObject, IEnumerable<IInterfaceInfo> infoSet)
         {
+            _selectedObjectsGetter = new SelectedObjectsGetter();
             CurrentObject = currentObject;
             _infoCollection = ViewInfoCollectionGetter.Get(infoSet);
         }
@@ -32,6 +35,18 @@ namespace RengaLookup.Plugin2.ViewModels
                 {
                     var infoCollector = new InfoCollector((IModelObject)CurrentObject);
                     InfoCollection = infoCollector.Get().Get();
+                });
+            }
+        }
+
+        private RelayCommand _getSelectedObjects;
+        public RelayCommand GetSelectedObjects
+        {
+            get
+            {
+                return _getSelectedObjects ??= new RelayCommand(() =>
+                {
+                    SelectedObjects = _selectedObjectsGetter.GetSelected().ToObservableCollection();
                 });
             }
         }
@@ -77,6 +92,7 @@ namespace RengaLookup.Plugin2.ViewModels
                 RaisePropertyChange(nameof(InfoCollection));
             }
         }
+
 
         public override object CurrentObject { get; }
     }
