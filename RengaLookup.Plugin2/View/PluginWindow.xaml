@@ -20,8 +20,12 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <ListBox HorizontalAlignment="Stretch" ItemsSource="{Binding InfoCollection}">
+        <ListBox
+            Grid.Row="0"
+            HorizontalAlignment="Stretch"
+            ItemsSource="{Binding InfoCollection}">
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -49,5 +53,13 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+
+        <Button
+            Grid.Row="1"
+            Width="150"
+            Height="40"
+            Margin="5"
+            Command="{Binding SnoopSelectedObject}"
+            Content="GetInfo" />
     </Grid>
 </Window>

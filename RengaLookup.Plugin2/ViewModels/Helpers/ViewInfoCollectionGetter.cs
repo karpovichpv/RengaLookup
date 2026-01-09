@@ -5,7 +5,7 @@ namespace RengaLookup.Plugin2.ViewModels.Helpers
 {
     internal static class ViewInfoCollectionGetter
     {
-        public static List<ViewInfo> Get(IEnumerable<IInterfaceInfo> infoSet)
+        public static List<ViewInfo> Get(this IEnumerable<IInterfaceInfo> infoSet)
         {
             List<ViewInfo> result = [];
             foreach (IInterfaceInfo interfaceInfo in infoSet)
