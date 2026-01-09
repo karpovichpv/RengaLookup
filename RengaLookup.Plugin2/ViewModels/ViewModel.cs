@@ -2,7 +2,6 @@
 using Renga;
 using RengaLookup.Plugin2.Domain;
 using RengaLookup.Plugin2.Model;
-using RengaLookup.Plugin2.Model.Contracts;
 using RengaLookup.Plugin2.Model.Data;
 using RengaLookup.Plugin2.ViewModels.Helpers;
 using System.Collections.ObjectModel;
@@ -15,15 +14,11 @@ namespace RengaLookup.Plugin2.ViewModels
 
         public ViewModel()
         {
-            _infoCollection = DesignTimeInfoGetter.GetInfoCollection();
+            _infoCollection = DesignTimeInfoGetter.GetInfoCollection().ToObservableCollection();
             _selectedObjects = DesignTimeInfoGetter.GetSelectedObjects();
-        }
-
-        public ViewModel(object currentObject, IEnumerable<IInterfaceInfo> infoSet)
-        {
             _selectedObjectsGetter = new SelectedObjectsGetter();
-            CurrentObject = currentObject;
-            _infoCollection = ViewInfoCollectionGetter.Get(infoSet);
+            _selectedObjects = new ObservableCollection<RengaObject>();
+            _infoCollection = new List<ViewInfo>().ToObservableCollection();
         }
 
         private RelayCommand _snoopSelectedObject;
@@ -33,8 +28,8 @@ namespace RengaLookup.Plugin2.ViewModels
             {
                 return _snoopSelectedObject ??= new RelayCommand(() =>
                 {
-                    var infoCollector = new InfoCollector((IModelObject)CurrentObject);
-                    InfoCollection = infoCollector.Get().Get();
+                    var infoCollector = new InfoCollector((IModelObject)CurrentObject.Object);
+                    InfoCollection = infoCollector.Get().Get().ToObservableCollection();
                 });
             }
         }
@@ -65,6 +60,20 @@ namespace RengaLookup.Plugin2.ViewModels
             }
         }
 
+        private RengaObject _currentObject;
+        public RengaObject CurrentObject
+        {
+            get
+            {
+                return _currentObject;
+            }
+            set
+            {
+                _currentObject = value;
+                RaisePropertyChange(nameof(CurrentObject));
+            }
+        }
+
         private ObservableCollection<BaseInfo> _data;
         public ObservableCollection<BaseInfo> Data
         {
@@ -79,8 +88,8 @@ namespace RengaLookup.Plugin2.ViewModels
             }
         }
 
-        private IEnumerable<ViewInfo> _infoCollection;
-        public override IEnumerable<ViewInfo> InfoCollection
+        private ObservableCollection<ViewInfo> _infoCollection;
+        public ObservableCollection<ViewInfo> InfoCollection
         {
             get
             {
@@ -93,7 +102,5 @@ namespace RengaLookup.Plugin2.ViewModels
             }
         }
 
-
-        public override object CurrentObject { get; }
     }
 }

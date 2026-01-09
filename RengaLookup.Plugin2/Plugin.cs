@@ -1,6 +1,4 @@
 using Renga;
-using RengaLookup.Plugin2.Domain;
-using RengaLookup.Plugin2.Model.Contracts;
 using RengaLookup.Plugin2.View;
 using RengaLookup.Plugin2.ViewModels;
 
@@ -56,28 +54,8 @@ namespace RengaLookup.Plugin2
             if (model is null)
                 return;
 
-            ISelection selection = _app.Selection;
-            int[] array = (int[])selection.GetSelectedObjects();
-
-            IModelObjectCollection modelObjects = model.GetObjects();
-            foreach (int index in array)
-            {
-                IModelObject modelObject = modelObjects.GetById(index);
-                if (modelObject != null)
-                    ShowMessageBox(modelObject);
-            }
-        }
-
-        private static void ShowMessageBox(IModelObject modelObject)
-        {
-            if (modelObject != null)
-            {
-                var collector = new InfoCollector(modelObject);
-                IEnumerable<IInterfaceInfo> collection = collector.Get();
-
-                var control = new PluginWindow(new ViewModel(modelObject, collection));
-                control.Show();
-            }
+            var control = new PluginWindow(new ViewModel());
+            control.Show();
         }
     }
 }

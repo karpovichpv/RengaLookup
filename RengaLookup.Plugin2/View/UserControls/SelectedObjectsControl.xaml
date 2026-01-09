@@ -25,7 +25,9 @@
         <ListBox
             Grid.Row="0"
             HorizontalAlignment="Stretch"
-            ItemsSource="{Binding SelectedObjects}">
+            viewModel:ListBoxSelectionChangedBehavior.Command="{Binding SnoopSelectedObject}"
+            ItemsSource="{Binding SelectedObjects}"
+            SelectedItem="{Binding CurrentObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -37,7 +39,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        <TextBox Style="{StaticResource ViewInfoTextBox}" Text="{Binding Name}" />
+                        <Label Content="{Binding Name}" />
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
