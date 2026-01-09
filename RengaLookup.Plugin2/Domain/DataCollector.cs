@@ -101,8 +101,7 @@ namespace RengaLookup.Plugin2.Domain
                 result.Add(new SubHeaderData("Methods"));
             foreach (MethodInfo info in infos)
             {
-                object value = info.ReturnType;
-                result.Add(new MethodData(info.Name, value));
+                result.Add(new MethodData(obj, info));
             }
 
             return result;
