@@ -1,14 +1,13 @@
-﻿using Renga;
-using RengaLookup.Plugin2.Model.Data;
+﻿using RengaLookup.Plugin2.Model.Data;
 using System.Reflection;
 
 namespace RengaLookup.Plugin2.Domain
 {
     internal class DataCollector
     {
-        private readonly IModelObject _modelObject;
+        private readonly object _modelObject;
 
-        public DataCollector(IModelObject modelObject)
+        public DataCollector(object modelObject)
         {
             _modelObject = modelObject ?? throw new ArgumentNullException(nameof(modelObject));
         }

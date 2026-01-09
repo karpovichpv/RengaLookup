@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using Renga;
 using RengaLookup.Plugin2.Domain;
 using RengaLookup.Plugin2.Model;
 using RengaLookup.Plugin2.Model.Data;
@@ -16,7 +15,7 @@ namespace RengaLookup.Plugin2.ViewModels
         {
             _selectedObjects = DesignTimeInfoGetter.GetSelectedObjects();
             _selectedObjectsGetter = new SelectedObjectsGetter();
-            _selectedObjects = new ObservableCollection<RengaObject>();
+            _selectedObjects = [];
         }
 
         private RelayCommand _snoopSelectedObject;
@@ -28,7 +27,7 @@ namespace RengaLookup.Plugin2.ViewModels
                 {
                     if (CurrentObject != null && CurrentObject.Object != null)
                     {
-                        var infoCollector = new DataCollector((IModelObject)CurrentObject.Object);
+                        var infoCollector = new DataCollector(CurrentObject.Object);
                         Data = infoCollector.Collect().ToObservableCollection();
                     }
                 });
@@ -44,6 +43,19 @@ namespace RengaLookup.Plugin2.ViewModels
                 {
                     SelectedObjects = _selectedObjectsGetter.GetSelected().ToObservableCollection();
                 });
+            }
+        }
+
+        private RelayCommand _runNewWindow;
+        public RelayCommand RunNewWindow
+        {
+            get
+            {
+                return _runNewWindow
+                    ?? (_runNewWindow = new RelayCommand(
+                        () => new NewInstanceRunner(SelectedData).RunNewInstance()
+                        )
+                    );
             }
         }
 
@@ -72,6 +84,20 @@ namespace RengaLookup.Plugin2.ViewModels
             {
                 _currentObject = value;
                 RaisePropertyChange(nameof(CurrentObject));
+            }
+        }
+
+        private BaseData _selectedData;
+        public BaseData SelectedData
+        {
+            get
+            {
+                return _selectedData;
+            }
+            set
+            {
+                _selectedData = value;
+                RaisePropertyChange(nameof(SelectedData));
             }
         }
 

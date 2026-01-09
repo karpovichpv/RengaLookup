@@ -1,4 +1,5 @@
-﻿namespace RengaLookup.Plugin2.Model.Data
+﻿
+namespace RengaLookup.Plugin2.Model.Data
 {
     public class SubHeaderData : BaseData
     {
@@ -6,6 +7,12 @@
         {
             IsSubHeader = true;
         }
+
+        public override List<object> WalkDown()
+        {
+            return null;
+        }
+
         private protected override bool CheckIfCanGet()
         {
             return false;

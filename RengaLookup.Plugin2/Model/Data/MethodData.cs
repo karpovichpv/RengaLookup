@@ -6,13 +6,18 @@ namespace RengaLookup.Plugin2.Model.Data
     {
         private readonly object _fatherObject;
         private readonly MethodInfo _methodInfo;
-        private readonly object _returnType;
+        private object _invokingResult;
 
         public MethodData(object fatherObject, MethodInfo info)
             : base(info.Name)
         {
             _fatherObject = fatherObject;
             _methodInfo = info;
+        }
+
+        public override List<object> WalkDown()
+        {
+            return [_invokingResult];
         }
 
         private protected override bool CheckIfCanGet()
@@ -31,6 +36,7 @@ namespace RengaLookup.Plugin2.Model.Data
                     else
                     {
                         _object = _methodInfo.ReturnType;
+                        _invokingResult = result;
                         return true;
                     }
                 }
