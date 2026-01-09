@@ -37,9 +37,14 @@ namespace RengaLookup.Plugin2.Domain
                     {
                         PropertyInfo[] propertyInfos = @interface.GetProperties();
                         FieldInfo[] fieldInfos = @interface.GetFields();
-                        MethodInfo[] methodInfos = @interface.GetMethods(BindingFlags.Public);
+                        MethodInfo[] methodInfos = @interface.GetMethods(
+                            BindingFlags.Instance
+                            | BindingFlags.Public
+                            | BindingFlags.NonPublic
+                            | BindingFlags.DeclaredOnly)
+                            .Where(m => !m.IsSpecialName).ToArray();
                         if (propertyInfos.Length + fieldInfos.Length + methodInfos.Length > 0)
-                            result.Add(new InterfaceNameHeaderData(@interface.Name));
+                            result.Add(new InterfaceHeaderData(@interface.Name));
 
                         IEnumerable<BaseData> propretiesDataSet = GetInfoFromProperties(_modelObject, propertyInfos);
                         IEnumerable<BaseData> fieldsDataSet = GetInfoFromFields(_modelObject, fieldInfos);
@@ -64,7 +69,7 @@ namespace RengaLookup.Plugin2.Domain
             foreach (FieldInfo info in infos)
             {
                 object value = info.GetValue(obj);
-                result.Add(new FieldData(info.Name) { Value = value.ToString() });
+                result.Add(new FieldData(info.Name, value));
             }
 
             return result;
@@ -81,7 +86,7 @@ namespace RengaLookup.Plugin2.Domain
             foreach (PropertyInfo info in infos)
             {
                 object value = info.GetValue(obj);
-                result.Add(new PropertyData(info.Name) { Value = value.ToString() });
+                result.Add(new PropertyData(info.Name, value));
             }
 
             return result;
@@ -97,7 +102,7 @@ namespace RengaLookup.Plugin2.Domain
             foreach (MethodInfo info in infos)
             {
                 object value = info.ReturnType;
-                result.Add(new MethodData(info.Name) { Value = value.ToString() });
+                result.Add(new MethodData(info.Name, value));
             }
 
             return result;

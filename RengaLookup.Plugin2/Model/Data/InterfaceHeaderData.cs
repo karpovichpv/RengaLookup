@@ -1,11 +1,12 @@
 ﻿namespace RengaLookup.Plugin2.Model.Data
 {
-    public class SubHeaderData : BaseData
+    public class InterfaceHeaderData : BaseData
     {
-        public SubHeaderData(string label) : base(label)
+        public InterfaceHeaderData(string label) : base(label)
         {
-            IsSubHeader = true;
+            IsInterfaceHeader = true;
         }
+
         private protected override bool CheckIfCanGet()
         {
             return false;

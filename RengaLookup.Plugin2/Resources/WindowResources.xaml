@@ -13,6 +13,9 @@
                 <Setter Property="FontStyle" Value="Italic" />
                 <Setter Property="Grid.ColumnSpan" Value="2" />
             </DataTrigger>
+            <DataTrigger Binding="{Binding CanGet}" Value="True">
+                <Setter Property="FontWeight" Value="Bold" />
+            </DataTrigger>
         </Style.Triggers>
     </Style>
 </ResourceDictionary>

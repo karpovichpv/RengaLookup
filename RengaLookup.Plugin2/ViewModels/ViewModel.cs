@@ -26,8 +26,11 @@ namespace RengaLookup.Plugin2.ViewModels
             {
                 return _snoopSelectedObject ??= new RelayCommand(() =>
                 {
-                    var infoCollector = new DataCollector((IModelObject)CurrentObject.Object);
-                    Data = infoCollector.Collect().ToObservableCollection();
+                    if (CurrentObject != null && CurrentObject.Object != null)
+                    {
+                        var infoCollector = new DataCollector((IModelObject)CurrentObject.Object);
+                        Data = infoCollector.Collect().ToObservableCollection();
+                    }
                 });
             }
         }

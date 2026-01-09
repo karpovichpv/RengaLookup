@@ -2,8 +2,14 @@
 {
     public class FieldData : BaseData
     {
-        public FieldData(string label) : base(label)
+        public FieldData(string label, object obj) : base(label)
         {
+            _object = obj;
+        }
+
+        private protected override bool CheckIfCanGet()
+        {
+            return false;
         }
     }
 }
