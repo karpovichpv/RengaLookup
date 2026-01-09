@@ -1,14 +1,12 @@
-﻿using RengaLookup.Plugin2.Model.Contracts;
-using RengaLookup.Plugin2.ViewModels.Helpers;
+﻿using RengaLookup.Plugin2.ViewModels.Helpers;
 using System.ComponentModel;
 
 namespace RengaLookup.Plugin2.ViewModels
 {
-    public abstract class ViewModelBase : IViewModel
+    public abstract class ViewModelBase : INotifyPropertyChanged
     {
 
         public event PropertyChangedEventHandler PropertyChanged;
-        public abstract IEnumerable<IInterfaceInfo> InfoSet { get; set; }
         public abstract IEnumerable<ViewInfo> InfoCollection { get; set; }
         public abstract object CurrentObject { get; }
         public string Title => TitleGetter.GetTitle(GetType());

@@ -14,7 +14,7 @@ namespace RengaLookup.Plugin2.View
             InitializeComponent();
         }
 
-        public PluginWindow(IViewModel viewModel)
+        public PluginWindow(ViewModel viewModel)
         {
             DataContext = viewModel;
             Application.ResourceAssembly = Assembly.GetExecutingAssembly();
