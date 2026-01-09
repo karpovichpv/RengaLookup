@@ -2,7 +2,6 @@
     x:Class="RengaLookup.Plugin2.View.PluginWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:converter="clr-namespace:RengaLookup.Plugin2.View.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:RengaLookup.Plugin2.ViewModels"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -36,7 +35,7 @@
             Grid.Row="0"
             Grid.Column="1"
             HorizontalAlignment="Stretch"
-            ItemsSource="{Binding InfoCollection}">
+            ItemsSource="{Binding Data}">
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -55,11 +54,11 @@
                         <TextBox
                             Grid.Column="0"
                             Style="{StaticResource ViewInfoTextBox}"
-                            Text="{Binding Name}" />
+                            Text="{Binding Label, Mode=OneWay}" />
                         <TextBox
                             Grid.Column="1"
                             Style="{StaticResource ViewInfoTextBox}"
-                            Text="{Binding Value}" />
+                            Text="{Binding Value, Mode=OneWay}" />
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>

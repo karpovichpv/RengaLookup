@@ -1,29 +1,27 @@
 ﻿using Renga;
-using RengaLookup.Model.Contracts;
-using RengaLookup.Model.Implementations;
-using RengaLookup.Plugin2.Model.Contracts;
+using RengaLookup.Plugin2.Model.Data;
 using System.Reflection;
 
 namespace RengaLookup.Plugin2.Domain
 {
-    internal class InfoCollector
+    internal class DataCollector
     {
         private readonly IModelObject _modelObject;
 
-        public InfoCollector(IModelObject modelObject)
+        public DataCollector(IModelObject modelObject)
         {
             _modelObject = modelObject ?? throw new ArgumentNullException(nameof(modelObject));
         }
 
-        public IEnumerable<IInterfaceInfo> Get()
+        public IEnumerable<BaseData> Collect()
         {
-            var interfaceEntries = new List<IInterfaceInfo>();
             Assembly executingAssembly = Assembly.GetExecutingAssembly();
             AssemblyName[] referencedAssemblies = executingAssembly.GetReferencedAssemblies();
             List<AssemblyName> interopAssemblies = referencedAssemblies
                 .Where(a => a.FullName.Contains("Interop"))
                 .ToList();
 
+            var result = new List<BaseData>();
             if (interopAssemblies != null)
             {
                 AssemblyName interopAssembly = interopAssemblies[0];
@@ -38,64 +36,68 @@ namespace RengaLookup.Plugin2.Domain
                     if (@interface.IsInstanceOfType(_modelObject))
                     {
                         PropertyInfo[] propertyInfos = @interface.GetProperties();
-                        IEnumerable<IInfo> propretiesDataSet = GetInfoFromProperties(_modelObject, propertyInfos);
                         FieldInfo[] fieldInfos = @interface.GetFields();
-                        IEnumerable<IInfo> fieldsDataSet = GetInfoFromFields(_modelObject, fieldInfos);
                         MethodInfo[] methodInfos = @interface.GetMethods(BindingFlags.Public);
-                        IEnumerable<IInfo> methodDataSet = GetInfoFromMethods(_modelObject, methodInfos);
+                        if (propertyInfos.Length + fieldInfos.Length + methodInfos.Length > 0)
+                            result.Add(new InterfaceNameHeaderData(@interface.Name));
 
-                        var value = new List<IInfo>();
-                        value.AddRange(propretiesDataSet);
-                        value.AddRange(fieldsDataSet);
-                        value.AddRange(methodDataSet);
-                        IInterfaceInfo interfaceEntry = new InterfaceInfo()
-                        {
-                            Name = @interface.Name,
-                            InfoSet = value
-                        };
-                        interfaceEntries.Add(interfaceEntry);
+                        IEnumerable<BaseData> propretiesDataSet = GetInfoFromProperties(_modelObject, propertyInfos);
+                        IEnumerable<BaseData> fieldsDataSet = GetInfoFromFields(_modelObject, fieldInfos);
+                        IEnumerable<BaseData> methodDataSet = GetInfoFromMethods(_modelObject, methodInfos);
+
+                        result.AddRange(propretiesDataSet);
+                        result.AddRange(fieldsDataSet);
+                        result.AddRange(methodDataSet);
                     }
                 }
             }
 
-            return interfaceEntries;
+            return result;
         }
 
-        private static List<IInfo> GetInfoFromFields(object obj, FieldInfo[] infos)
+        private static List<BaseData> GetInfoFromFields(object obj, FieldInfo[] infos)
         {
-            var result = new List<IInfo>();
+            var result = new List<BaseData>();
+            if (infos.Length != 0)
+                result.Add(new SubHeaderData("Fields"));
+
             foreach (FieldInfo info in infos)
             {
                 object value = info.GetValue(obj);
-                result.Add(new Info() { Name = info.Name, Value = value.ToString(), Type = SyntaxType.Field });
+                result.Add(new FieldData(info.Name) { Value = value.ToString() });
             }
 
             return result;
         }
 
-        private static List<IInfo> GetInfoFromProperties(
+        private static List<BaseData> GetInfoFromProperties(
             object obj,
             PropertyInfo[] infos)
         {
-            var result = new List<IInfo>();
+            var result = new List<BaseData>();
+            if (infos.Length != 0)
+                result.Add(new SubHeaderData("Properties"));
+
             foreach (PropertyInfo info in infos)
             {
                 object value = info.GetValue(obj);
-                result.Add(new Info() { Name = info.Name, Type = SyntaxType.Property, Value = value.ToString() });
+                result.Add(new PropertyData(info.Name) { Value = value.ToString() });
             }
 
             return result;
         }
 
-        private static List<IInfo> GetInfoFromMethods(
+        private static List<BaseData> GetInfoFromMethods(
             object obj,
             MethodInfo[] infos)
         {
-            var result = new List<IInfo>();
+            var result = new List<BaseData>();
+            if (infos.Length != 0)
+                result.Add(new SubHeaderData("Methods"));
             foreach (MethodInfo info in infos)
             {
                 object value = info.ReturnType;
-                result.Add(new Info() { Name = info.Name, Type = SyntaxType.Method, Value = value.ToString() });
+                result.Add(new MethodData(info.Name) { Value = value.ToString() });
             }
 
             return result;

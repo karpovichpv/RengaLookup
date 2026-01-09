@@ -1,6 +1,4 @@
-﻿using RengaLookup.Model.Contracts;
-using RengaLookup.Model.Implementations;
-using RengaLookup.Plugin2.Model;
+﻿using RengaLookup.Plugin2.Model;
 using System.Collections.ObjectModel;
 
 namespace RengaLookup.Plugin2.ViewModels.Helpers
@@ -34,29 +32,6 @@ namespace RengaLookup.Plugin2.ViewModels.Helpers
 
 
             ];
-        }
-
-        public static InterfaceInfo GetInterfaceInfo(string n)
-        {
-            return new InterfaceInfo()
-            {
-                Name = $"IInterface name {n}",
-                InfoSet = new List<IInfo>()
-                    {
-                        new Info()
-                        {
-                            Name = $"Some name {1}",
-                            Type = SyntaxType.Property,
-                            Value = $"Value {1}"
-                        },
-                        new Info()
-                        {
-                            Name = $"Some name {2}",
-                            Type = SyntaxType.Property,
-                            Value = $"Value {2}"
-                        }
-                    }
-            };
         }
 
         internal static ObservableCollection<RengaObject> GetSelectedObjects()

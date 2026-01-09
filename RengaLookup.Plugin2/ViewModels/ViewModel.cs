@@ -14,11 +14,9 @@ namespace RengaLookup.Plugin2.ViewModels
 
         public ViewModel()
         {
-            _infoCollection = DesignTimeInfoGetter.GetInfoCollection().ToObservableCollection();
             _selectedObjects = DesignTimeInfoGetter.GetSelectedObjects();
             _selectedObjectsGetter = new SelectedObjectsGetter();
             _selectedObjects = new ObservableCollection<RengaObject>();
-            _infoCollection = new List<ViewInfo>().ToObservableCollection();
         }
 
         private RelayCommand _snoopSelectedObject;
@@ -28,8 +26,8 @@ namespace RengaLookup.Plugin2.ViewModels
             {
                 return _snoopSelectedObject ??= new RelayCommand(() =>
                 {
-                    var infoCollector = new InfoCollector((IModelObject)CurrentObject.Object);
-                    InfoCollection = infoCollector.Get().Get().ToObservableCollection();
+                    var infoCollector = new DataCollector((IModelObject)CurrentObject.Object);
+                    Data = infoCollector.Collect().ToObservableCollection();
                 });
             }
         }
@@ -74,8 +72,8 @@ namespace RengaLookup.Plugin2.ViewModels
             }
         }
 
-        private ObservableCollection<BaseInfo> _data;
-        public ObservableCollection<BaseInfo> Data
+        private ObservableCollection<BaseData> _data;
+        public ObservableCollection<BaseData> Data
         {
             get
             {
@@ -87,20 +85,5 @@ namespace RengaLookup.Plugin2.ViewModels
                 RaisePropertyChange(nameof(Data));
             }
         }
-
-        private ObservableCollection<ViewInfo> _infoCollection;
-        public ObservableCollection<ViewInfo> InfoCollection
-        {
-            get
-            {
-                return _infoCollection;
-            }
-            set
-            {
-                _infoCollection = value;
-                RaisePropertyChange(nameof(InfoCollection));
-            }
-        }
-
     }
 }
