@@ -18,7 +18,7 @@ namespace RengaLookup.Plugin2.Domain
             if (_app is null)
                 return result;
 
-            IModel model = _app.Project.Model;
+            IModel model = ModelGetter.GetModel(_app);
             if (model is null)
                 return result;
 
