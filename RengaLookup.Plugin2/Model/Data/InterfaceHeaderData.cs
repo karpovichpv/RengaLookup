@@ -12,10 +12,5 @@ namespace RengaLookup.Plugin2.Model.Data
         {
             return null;
         }
-
-        private protected override bool CheckIfCanGet()
-        {
-            return false;
-        }
     }
 }

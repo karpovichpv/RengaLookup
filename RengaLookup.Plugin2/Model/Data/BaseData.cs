@@ -18,7 +18,7 @@ namespace RengaLookup.Plugin2.Model.Data
         public bool CanGet => CheckIfCanGet();
         public abstract List<object> WalkDown();
 
-        private protected abstract bool CheckIfCanGet();
+        private protected virtual bool CheckIfCanGet() => false;
 
         private protected string GetValue()
         {
