@@ -2,13 +2,13 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace RengaLookup.Plugin2.ViewModels
+namespace RengaLookup.Plugin2.View.Behaviours
 {
-    public static class ListBoxSelectionChangedBehavior
+    public static class ElementsListBoxSelectionChangedBehavior
     {
         public static readonly DependencyProperty CommandProperty =
             DependencyProperty.RegisterAttached("Command", typeof(ICommand),
-                typeof(ListBoxSelectionChangedBehavior),
+                typeof(ElementsListBoxSelectionChangedBehavior),
                 new PropertyMetadata(null, OnCommandChanged));
 
         public static void SetCommand(DependencyObject obj, ICommand value) =>
