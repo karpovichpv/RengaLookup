@@ -51,11 +51,10 @@ namespace RengaLookup.Plugin2.ViewModels
         {
             get
             {
-                return _runNewWindow
-                    ?? (_runNewWindow = new RelayCommand(
-                        () => new NewInstanceRunner(SelectedData).RunNewInstance()
-                        )
-                    );
+                return _runNewWindow ??= new RelayCommand(
+                        () => new NewInstanceRunner(SelectedData).RunNewInstance(),
+                        () => SelectedData != null && SelectedData.CanGet)
+;
             }
         }
 
