@@ -9,11 +9,6 @@ namespace RengaLookup.Plugin2.Model.Data
             _object = obj;
         }
 
-        public override List<object> WalkDown()
-        {
-            return null;
-        }
-
         private protected override bool CheckIfCanGet()
         {
             if (_object != null && (_object.GetType().ToString().Contains("Renga")))

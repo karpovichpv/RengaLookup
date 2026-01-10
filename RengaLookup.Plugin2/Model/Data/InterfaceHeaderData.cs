@@ -7,10 +7,5 @@ namespace RengaLookup.Plugin2.Model.Data
         {
             IsInterfaceHeader = true;
         }
-
-        public override List<object> WalkDown()
-        {
-            return null;
-        }
     }
 }
