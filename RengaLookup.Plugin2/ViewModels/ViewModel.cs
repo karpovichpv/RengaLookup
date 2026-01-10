@@ -30,7 +30,9 @@ namespace RengaLookup.Plugin2.ViewModels
                         var infoCollector = new DataCollector(CurrentObject.Object);
                         Data = infoCollector.Collect().ToObservableCollection();
                     }
-                });
+                },
+                () => CurrentObject != null && CurrentObject.Object != null
+                );
             }
         }
 
