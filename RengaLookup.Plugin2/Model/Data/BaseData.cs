@@ -11,6 +11,12 @@ namespace RengaLookup.Plugin2.Model.Data
             Label = label;
         }
 
+        protected BaseData(string label, object obj)
+        {
+            Label = label;
+            _object = obj;
+        }
+
         public bool IsInterfaceHeader { get; protected set; }
         public bool IsSubHeader { get; protected set; }
         public string Label { get; }

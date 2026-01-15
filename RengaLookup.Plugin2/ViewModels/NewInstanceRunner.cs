@@ -35,7 +35,7 @@ namespace RengaLookup.Plugin2.ViewModels
                 SelectedObjects = objects
                 .ToRengaObjects()
                 .ToObservableCollection(),
-                Data = new DataCollector(objects.FirstOrDefault())
+                Data = new ChiefCollector(objects.FirstOrDefault())
                     .Collect()
                     .ToObservableCollection()
             };

@@ -1,18 +1,18 @@
 ﻿using Renga;
+using RengaLookup.Plugin2.Model.Data;
 
 namespace RengaLookup.Plugin2.Domain.StylesExtensions
 {
-    internal static class PropertiesHelpers
+    internal class PropertiesDataGetter
     {
-        public static List<LookupProperty> OutputProperties(IPropertyContainer properties)
+        public static List<BaseData> GetProperties(IPropertyContainer properties)
         {
-            List<LookupProperty> result = [];
+            List<BaseData> result = [];
             var ids = properties.GetIds();
             for (int i = 0; i < ids.Count; ++i)
             {
                 Renga.IProperty property = properties.Get(ids.Get(i));
-                object value = GetPropertyValue(property);
-                result.Add(new LookupProperty(property, value));
+                result.Add(new UnitValue(property.Name, GetPropertyValue(property)));
             }
 
             return result;

@@ -27,7 +27,7 @@ namespace RengaLookup.Plugin2.ViewModels
                 {
                     if (CurrentObject != null && CurrentObject.Object != null)
                     {
-                        var infoCollector = new DataCollector(CurrentObject.Object);
+                        var infoCollector = new ChiefCollector(CurrentObject.Object);
                         Data = infoCollector.Collect().ToObservableCollection();
                     }
                 },

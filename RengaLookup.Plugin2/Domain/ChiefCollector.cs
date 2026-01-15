@@ -1,18 +1,36 @@
-﻿using RengaLookup.Plugin2.Model.Data;
+﻿using Renga;
+using RengaLookup.Plugin2.Domain.StylesExtensions;
+using RengaLookup.Plugin2.Model.Data;
 using System.Reflection;
 
 namespace RengaLookup.Plugin2.Domain
 {
-    internal class DataCollector
+    internal class ChiefCollector
     {
         private readonly object _modelObject;
+        private readonly Application _app;
 
-        public DataCollector(object modelObject)
+        public ChiefCollector(object modelObject)
         {
-            _modelObject = modelObject ?? throw new ArgumentNullException(nameof(modelObject));
+            _modelObject = modelObject
+                ?? throw new ArgumentNullException(nameof(modelObject));
+            _app = new Application();
         }
 
         public IEnumerable<BaseData> Collect()
+        {
+            List<BaseData> result;
+            if (_modelObject is IParameterContainer parameterContainer)
+                result = ParametersDataGetter.GetParameters(parameterContainer);
+            if (_modelObject is IPropertyContainer propertyContainer)
+                result = PropertiesDataGetter.GetProperties(propertyContainer);
+            else
+                result = CollectInterfacesAndClasses();
+
+            return result;
+        }
+
+        private List<BaseData> CollectInterfacesAndClasses()
         {
             Assembly executingAssembly = Assembly.GetExecutingAssembly();
             AssemblyName[] referencedAssemblies = executingAssembly.GetReferencedAssemblies();
@@ -29,7 +47,7 @@ namespace RengaLookup.Plugin2.Domain
                 // Get all interfaces
                 IEnumerable<Type> interfaces = assembly
                     .GetTypes()
-                    .Where(t => t.IsInterface);
+                    .Where(t => t.IsInterface || t.IsClass);
                 foreach (Type @interface in interfaces)
                 {
                     if (@interface.IsInstanceOfType(_modelObject))
