@@ -1,4 +1,5 @@
 ﻿using Renga;
+using RengaLookup.Plugin2.Domain.Helpers;
 using RengaLookup.Plugin2.Domain.StylesExtensions;
 using RengaLookup.Plugin2.Model.Data;
 using System.Reflection;
@@ -22,8 +23,10 @@ namespace RengaLookup.Plugin2.Domain
             List<BaseData> result;
             if (_modelObject is IParameterContainer parameterContainer)
                 result = ParametersDataGetter.GetParameters(parameterContainer);
-            if (_modelObject is IPropertyContainer propertyContainer)
+            else if (_modelObject is IPropertyContainer propertyContainer)
                 result = PropertiesDataGetter.GetProperties(propertyContainer);
+            else if (_modelObject is IQuantityContainer quantityContainer)
+                result = QuantitiesDataGetter.GetQuantities(quantityContainer);
             else
                 result = CollectInterfacesAndClasses();
 
