@@ -50,7 +50,7 @@ namespace RengaLookup.Plugin2.Domain
                 // Get all interfaces
                 IEnumerable<Type> interfaces = assembly
                     .GetTypes()
-                    .Where(t => t.IsInterface || t.IsClass);
+                    .Where(t => t.IsInterface || t.IsClass || (t.IsValueType && !t.IsPrimitive && !t.IsEnum));
                 foreach (Type @interface in interfaces)
                 {
                     if (@interface.IsInstanceOfType(_modelObject))
@@ -105,8 +105,7 @@ namespace RengaLookup.Plugin2.Domain
 
             foreach (PropertyInfo info in infos)
             {
-                object value = info.GetValue(obj);
-                result.Add(new PropertyData(info.Name, value));
+                result.Add(new PropertyData(obj, info));
             }
 
             return result;

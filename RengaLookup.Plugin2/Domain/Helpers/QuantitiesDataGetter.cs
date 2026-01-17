@@ -8,7 +8,7 @@ namespace RengaLookup.Plugin2.Domain.Helpers
     {
         public static List<BaseData> GetQuantities(IQuantityContainer container)
         {
-            Type targetType = typeof(Renga.Quantities); // Get all static properties (public + non-public if desired)
+            Type targetType = typeof(Renga.Quantities);
             PropertyInfo[] staticProps = targetType.GetProperties(
                 BindingFlags.Static |
                 BindingFlags.Public |

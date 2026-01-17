@@ -30,12 +30,12 @@ namespace RengaLookup.Plugin2.Model.Data
                 {
                     if (result is bool || result is double || result is int || result is string)
                     {
-                        _object = result;
+                        base._fatherObject = result;
                         return false;
                     }
                     else
                     {
-                        _object = _methodInfo.ReturnType;
+                        base._fatherObject = _methodInfo.ReturnType;
                         _invokingResult = result;
                         return true;
                     }
@@ -43,7 +43,7 @@ namespace RengaLookup.Plugin2.Model.Data
             }
             else
             {
-                _object = _methodInfo.ReturnType;
+                base._fatherObject = _methodInfo.ReturnType;
             }
             return false;
         }

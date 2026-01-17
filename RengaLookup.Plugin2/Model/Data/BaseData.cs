@@ -4,7 +4,7 @@ namespace RengaLookup.Plugin2.Model.Data
 {
     public abstract class BaseData
     {
-        private protected object _object;
+        private protected object _fatherObject;
 
         protected BaseData(string label)
         {
@@ -14,7 +14,7 @@ namespace RengaLookup.Plugin2.Model.Data
         protected BaseData(string label, object obj)
         {
             Label = label;
-            _object = obj;
+            _fatherObject = obj;
         }
 
         public bool IsInterfaceHeader { get; protected set; }
@@ -28,10 +28,10 @@ namespace RengaLookup.Plugin2.Model.Data
 
         private protected string GetValue()
         {
-            if (_object is null)
+            if (_fatherObject is null)
                 return string.Empty;
 
-            return _object.ToString();
+            return _fatherObject.ToString();
         }
     }
 }

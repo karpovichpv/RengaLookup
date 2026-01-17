@@ -1,20 +1,32 @@
-﻿using System.Collections;
+﻿using System.Reflection;
 
 namespace RengaLookup.Plugin2.Model.Data
 {
     public class PropertyData : BaseData
     {
-        public PropertyData(string label, object obj) : base(label)
+        private readonly PropertyInfo _info;
+        private object _childObject;
+
+        public PropertyData(object fatherObject, PropertyInfo info)
+            : base(info.Name)
         {
-            _object = obj;
+            _fatherObject = fatherObject;
+            _info = info;
         }
+
+        public override List<object> WalkDown()
+        {
+            return [_childObject];
+        }
+
 
         private protected override bool CheckIfCanGet()
         {
-            if (_object != null && (_object.GetType().ToString().Contains("Renga")))
+            if (_fatherObject != null && (_info.PropertyType.FullName.Contains("Renga")))
+            {
+                _childObject = _info.GetValue(_fatherObject, null);
                 return true;
-            else if (_object.GetType() == typeof(ArrayList) && ((ArrayList)_object).Count > 0)
-                return true;
+            }
 
             return false;
         }
