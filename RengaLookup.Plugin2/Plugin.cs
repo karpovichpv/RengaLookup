@@ -1,6 +1,10 @@
 using Renga;
+using RengaLookup.Plugin2.Domain;
+using RengaLookup.Plugin2.Model;
 using RengaLookup.Plugin2.View;
 using RengaLookup.Plugin2.ViewModels;
+using RengaLookup.Plugin2.ViewModels.Helpers;
+using System.Collections.ObjectModel;
 
 namespace RengaLookup.Plugin2
 {
@@ -54,7 +58,10 @@ namespace RengaLookup.Plugin2
             if (model is null)
                 return;
 
-            var control = new PluginWindow(new ViewModel());
+            ObservableCollection<RengaObject> selectedObjects = new SelectedObjectsGetter()
+                .GetSelected()
+                .ToObservableCollection();
+            var control = new PluginWindow(new ViewModel(selectedObjects));
             control.Show();
         }
     }

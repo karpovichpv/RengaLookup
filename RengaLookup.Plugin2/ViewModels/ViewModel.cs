@@ -11,11 +11,12 @@ namespace RengaLookup.Plugin2.ViewModels
     {
         private readonly SelectedObjectsGetter _selectedObjectsGetter;
 
-        public ViewModel()
+        public ViewModel(ObservableCollection<RengaObject> selectedObjects = null)
         {
             _selectedObjects = DesignTimeInfoGetter.GetSelectedObjects();
             _selectedObjectsGetter = new SelectedObjectsGetter();
-            _selectedObjects = [];
+            if (selectedObjects != null)
+                _selectedObjects = selectedObjects;
         }
 
         private RelayCommand _snoopSelectedObject;
@@ -60,7 +61,7 @@ namespace RengaLookup.Plugin2.ViewModels
             }
         }
 
-        private ObservableCollection<RengaObject> _selectedObjects;
+        private ObservableCollection<RengaObject> _selectedObjects = [];
         public ObservableCollection<RengaObject> SelectedObjects
         {
             get
