@@ -4,7 +4,6 @@ using RengaLookup.Plugin2.Model;
 using RengaLookup.Plugin2.View;
 using RengaLookup.Plugin2.ViewModels;
 using RengaLookup.Plugin2.ViewModels.Helpers;
-using System.Collections.ObjectModel;
 
 namespace RengaLookup.Plugin2
 {
@@ -58,11 +57,33 @@ namespace RengaLookup.Plugin2
             if (model is null)
                 return;
 
-            ObservableCollection<RengaObject> selectedObjects = new SelectedObjectsGetter()
-                .GetSelected()
-                .ToObservableCollection();
-            var control = new PluginWindow(new ViewModel(selectedObjects));
+            List<RengaObject> selectedObjects = GetSelectedObjects(model);
+            RengaObject firstObject = selectedObjects.FirstOrDefault();
+            var control = new PluginWindow(
+             new ViewModel()
+             {
+                 CurrentObject = selectedObjects.FirstOrDefault(),
+                 SelectedObjects = selectedObjects.ToObservableCollection(),
+                 Data = new ChiefCollector(firstObject.Object)
+                    .Collect()
+                    .ToObservableCollection()
+             });
             control.Show();
+        }
+
+        private static List<RengaObject> GetSelectedObjects(IModel model)
+        {
+            List<RengaObject> selectedObjects =
+                new SelectedObjectsGetter().GetSelected();
+            if (selectedObjects.Count == 0)
+            {
+                return
+                [
+                    new() { Name = $"Model {model.Id}", Object = model }
+                ];
+            }
+
+            return selectedObjects;
         }
     }
 }
