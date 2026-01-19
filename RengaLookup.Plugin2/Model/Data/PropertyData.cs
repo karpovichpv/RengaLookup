@@ -10,7 +10,7 @@ namespace RengaLookup.Plugin2.Model.Data
         public PropertyData(object fatherObject, PropertyInfo info)
             : base(info.Name)
         {
-            _fatherObject = fatherObject;
+            _object = fatherObject;
             _info = info;
         }
 
@@ -22,13 +22,29 @@ namespace RengaLookup.Plugin2.Model.Data
 
         private protected override bool CheckIfCanGet()
         {
-            if (_fatherObject != null && (_info.PropertyType.FullName.Contains("Renga")))
+            if (_object != null && (_info.PropertyType.FullName.Contains("Renga")))
             {
-                _childObject = _info.GetValue(_fatherObject, null);
+                _childObject = _info.GetValue(_object, null);
                 return true;
             }
 
             return false;
+        }
+
+        private protected override string GetValue()
+        {
+            Type propertyType = _info.PropertyType;
+            if (propertyType == typeof(string)
+                || propertyType == typeof(int)
+                || propertyType == typeof(bool)
+                || propertyType == typeof(byte)
+                || propertyType == typeof(uint)
+                || propertyType == typeof(double))
+            {
+                return _info.GetValue(_object, null).ToString(); ;
+            }
+
+            return _info.PropertyType.ToString();
         }
     }
 }

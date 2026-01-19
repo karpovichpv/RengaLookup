@@ -5,7 +5,7 @@ namespace RengaLookup.Plugin2.Model.Data
     {
         public FieldData(string label, object obj) : base(label)
         {
-            _fatherObject = obj;
+            _object = obj;
         }
     }
 }
