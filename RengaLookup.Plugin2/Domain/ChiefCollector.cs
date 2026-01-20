@@ -87,10 +87,7 @@ namespace RengaLookup.Plugin2.Domain
                 result.Add(new SubHeaderData("Fields"));
 
             foreach (FieldInfo info in infos)
-            {
-                object value = info.GetValue(obj);
-                result.Add(new FieldData(info.Name, value));
-            }
+                result.Add(new FieldData(obj, info));
 
             return result;
         }
