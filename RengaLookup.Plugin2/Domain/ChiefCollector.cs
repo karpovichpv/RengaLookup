@@ -2,6 +2,7 @@
 using RengaLookup.Plugin2.Domain.Helpers;
 using RengaLookup.Plugin2.Domain.StylesExtensions;
 using RengaLookup.Plugin2.Model.Data;
+using RengaLookup.Plugin2.Model.Data.ReflectionData;
 using System.Reflection;
 
 namespace RengaLookup.Plugin2.Domain
