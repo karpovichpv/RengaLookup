@@ -15,11 +15,5 @@ namespace RengaLookup.Plugin2.Model.Data.ReflectionData
             if (fatherObject != null)
                 _returnObject = _info.GetValue(fatherObject, null);
         }
-
-
-        private protected override bool CheckIfCanGet()
-        {
-            return CheckIfCanGetInternal();
-        }
     }
 }

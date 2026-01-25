@@ -21,7 +21,7 @@ namespace RengaLookup.Plugin2.Model.Data.ReflectionData
             return _childObjects;
         }
 
-        private protected bool CheckIfCanGetInternal()
+        private protected override bool CheckIfCanGet()
         {
             if (_returnObject != null)
             {

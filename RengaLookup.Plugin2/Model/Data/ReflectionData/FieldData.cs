@@ -15,10 +15,5 @@ namespace RengaLookup.Plugin2.Model.Data.ReflectionData
             _returnType = _info.FieldType;
             _returnObject = _info.GetValue(_object);
         }
-
-        private protected override bool CheckIfCanGet()
-        {
-            return CheckIfCanGetInternal();
-        }
     }
 }

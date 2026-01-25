@@ -12,13 +12,9 @@ namespace RengaLookup.Plugin2.Model.Data.ReflectionData
             _info = info;
             _returnType = _info.ReturnType;
             bool isParameterless = _info.GetParameters().Length == 0;
-            if (isParameterless)
+            bool isVoidReturn = _info.ReturnType.Name.Equals("Void", StringComparison.InvariantCulture);
+            if (isParameterless && !isVoidReturn)
                 _returnObject = _info.Invoke(_fatherObject, []);
-        }
-
-        private protected override bool CheckIfCanGet()
-        {
-            return CheckIfCanGetInternal();
         }
     }
 }
