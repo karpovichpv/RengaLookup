@@ -29,6 +29,8 @@ namespace RengaLookup.Plugin2.Model.Data.ReflectionData
                     is bool
                     or double
                     or int
+                    or byte
+                    or Int16
                     or string)
                 {
                     _object = _returnObject;

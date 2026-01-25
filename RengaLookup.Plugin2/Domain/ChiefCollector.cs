@@ -10,18 +10,20 @@ namespace RengaLookup.Plugin2.Domain
     internal class ChiefCollector
     {
         private readonly object _modelObject;
+        private readonly Type _type;
         private readonly Application _app;
 
         public ChiefCollector(object modelObject)
         {
             _modelObject = modelObject
                 ?? throw new ArgumentNullException(nameof(modelObject));
+            _type = modelObject.GetType();
             _app = new Application();
         }
 
         public IEnumerable<BaseData> Collect()
         {
-            List<BaseData> result;
+            var result = new List<BaseData>();
             if (_modelObject is IParameterContainer parameterContainer)
                 result = ParametersDataGetter.GetParameters(parameterContainer);
             else if (_modelObject is IPropertyContainer propertyContainer)
@@ -29,12 +31,24 @@ namespace RengaLookup.Plugin2.Domain
             else if (_modelObject is IQuantityContainer quantityContainer)
                 result = QuantitiesDataGetter.GetQuantities(quantityContainer);
             else
-                result = CollectInterfacesAndClasses();
+            {
+                bool isRengaObject = _type.FullName
+                    .Contains("ComObject", StringComparison.InvariantCultureIgnoreCase);
+                if (isRengaObject)
+                    result.AddRange(CollectRengaInterfacesAndClasses());
+                else
+                {
+                    result.AddRange(CollectOrdynaryProperties());
+                    result.AddRange(CollectOrdynaryFields());
+                    result.AddRange(CollectOrdynaryMethods());
+                }
+            }
 
             return result;
         }
 
-        private List<BaseData> CollectInterfacesAndClasses()
+
+        private List<BaseData> CollectRengaInterfacesAndClasses()
         {
             Assembly executingAssembly = Assembly.GetExecutingAssembly();
             AssemblyName[] referencedAssemblies = executingAssembly.GetReferencedAssemblies();
@@ -80,6 +94,46 @@ namespace RengaLookup.Plugin2.Domain
 
             return result;
         }
+
+        private List<BaseData> CollectOrdynaryProperties()
+        {
+            PropertyInfo[] properties = _type.GetProperties(BindingFlags.Instance | BindingFlags.FlattenHierarchy | BindingFlags.SetProperty | BindingFlags.GetProperty | BindingFlags.Public | BindingFlags.NonPublic);
+
+            var result = new List<BaseData>();
+            foreach (PropertyInfo info in properties)
+                result.Add(new PropertyData(_modelObject, info));
+
+            return result;
+        }
+
+        private List<BaseData> CollectOrdynaryFields()
+        {
+            var result = new List<BaseData>();
+
+            FieldInfo[] fields = _type.GetFields(BindingFlags.Instance | BindingFlags.FlattenHierarchy | BindingFlags.SetProperty | BindingFlags.GetProperty | BindingFlags.Public | BindingFlags.NonPublic);
+            foreach (FieldInfo field in fields)
+                if (!field.Name.Contains("BackingField"))
+                    result.Add(new FieldData(_modelObject, field));
+
+            return result;
+        }
+
+        private List<BaseData> CollectOrdynaryMethods()
+        {
+            var result = new List<BaseData>();
+
+            MethodInfo[] methods = _type.GetMethods(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
+                .Where(t => !t.IsSpecialName && t.IsSecurityCritical && t.Name != "FromStruct" && t.Name != "ToStruct")
+                .ToArray();
+
+            foreach (MethodInfo info in methods)
+            {
+                result.Add(new MethodData(_modelObject, info));
+            }
+
+            return result;
+        }
+
 
         private static List<BaseData> GetInfoFromFields(object obj, FieldInfo[] infos)
         {
