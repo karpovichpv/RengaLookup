@@ -7,5 +7,14 @@ namespace RengaLookup.Plugin2.Model.Data
         {
             IsSubHeader = true;
         }
+
+        public static BaseData GetMethodsSubHeader()
+            => new SubHeaderData("Methods");
+
+        public static BaseData GetPropertiesSubHeader()
+            => new SubHeaderData("Properties");
+
+        public static BaseData GetFieldsSubHeader()
+            => new SubHeaderData("Fields");
     }
 }

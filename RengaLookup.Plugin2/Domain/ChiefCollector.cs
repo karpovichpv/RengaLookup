@@ -100,6 +100,8 @@ namespace RengaLookup.Plugin2.Domain
             PropertyInfo[] properties = _type.GetProperties(BindingFlags.Instance | BindingFlags.FlattenHierarchy | BindingFlags.SetProperty | BindingFlags.GetProperty | BindingFlags.Public | BindingFlags.NonPublic);
 
             var result = new List<BaseData>();
+            if (properties.Length > 0)
+                result.Add(SubHeaderData.GetPropertiesSubHeader());
             foreach (PropertyInfo info in properties)
                 result.Add(new PropertyData(_modelObject, info));
 
@@ -108,9 +110,12 @@ namespace RengaLookup.Plugin2.Domain
 
         private List<BaseData> CollectOrdynaryFields()
         {
-            var result = new List<BaseData>();
 
             FieldInfo[] fields = _type.GetFields(BindingFlags.Instance | BindingFlags.FlattenHierarchy | BindingFlags.SetProperty | BindingFlags.GetProperty | BindingFlags.Public | BindingFlags.NonPublic);
+            var result = new List<BaseData>();
+            if (fields.Length > 0)
+                result.Add(SubHeaderData.GetFieldsSubHeader());
+
             foreach (FieldInfo field in fields)
                 if (!field.Name.Contains("BackingField"))
                     result.Add(new FieldData(_modelObject, field));
@@ -122,14 +127,14 @@ namespace RengaLookup.Plugin2.Domain
         {
             var result = new List<BaseData>();
 
-            MethodInfo[] methods = _type.GetMethods(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
-                .Where(t => !t.IsSpecialName && t.IsSecurityCritical && t.Name != "FromStruct" && t.Name != "ToStruct")
-                .ToArray();
+            IEnumerable<MethodInfo> methods = _type.GetMethods(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
+                .Where(t => !t.IsSpecialName && t.IsSecurityCritical && t.Name != "FromStruct" && t.Name != "ToStruct");
+
+            if (methods.Count() > 0)
+                result.Add(SubHeaderData.GetMethodsSubHeader());
 
             foreach (MethodInfo info in methods)
-            {
                 result.Add(new MethodData(_modelObject, info));
-            }
 
             return result;
         }
@@ -139,7 +144,7 @@ namespace RengaLookup.Plugin2.Domain
         {
             var result = new List<BaseData>();
             if (infos.Length != 0)
-                result.Add(new SubHeaderData("Fields"));
+                result.Add(SubHeaderData.GetFieldsSubHeader());
 
             foreach (FieldInfo info in infos)
                 result.Add(new FieldData(obj, info));
@@ -153,7 +158,7 @@ namespace RengaLookup.Plugin2.Domain
         {
             var result = new List<BaseData>();
             if (infos.Length != 0)
-                result.Add(new SubHeaderData("Properties"));
+                result.Add(SubHeaderData.GetPropertiesSubHeader());
 
             foreach (PropertyInfo info in infos)
             {
@@ -169,7 +174,7 @@ namespace RengaLookup.Plugin2.Domain
         {
             var result = new List<BaseData>();
             if (infos.Length != 0)
-                result.Add(new SubHeaderData("Methods"));
+                result.Add(SubHeaderData.GetMethodsSubHeader());
             foreach (MethodInfo info in infos)
             {
                 result.Add(new MethodData(obj, info));
