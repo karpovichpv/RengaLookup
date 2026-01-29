@@ -45,6 +45,12 @@ namespace RengaLookup.Plugin2.Model.Data.ReflectionData
                         _childObjects = LayerCollectionGetter
                             .GetLayers(layerCollection);
                     }
+                    else if (_returnType == typeof(IModelObjectCollection))
+                    {
+                        var collection = (IModelObjectCollection)_returnObject;
+                        _childObjects = ModelObjectGetter
+                            .GetObjects(collection);
+                    }
                     else
                         _childObjects = [_returnObject];
 
