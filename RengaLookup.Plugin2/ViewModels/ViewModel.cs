@@ -59,8 +59,8 @@ namespace RengaLookup.Plugin2.ViewModels
             }
         }
 
-        private ObservableCollection<RengaObject> _selectedObjects = [];
-        public ObservableCollection<RengaObject> SelectedObjects
+        private ObservableCollection<OutObject> _selectedObjects = [];
+        public ObservableCollection<OutObject> SelectedObjects
         {
             get
             {
@@ -73,8 +73,8 @@ namespace RengaLookup.Plugin2.ViewModels
             }
         }
 
-        private RengaObject _currentObject;
-        public RengaObject CurrentObject
+        private OutObject _currentObject;
+        public OutObject CurrentObject
         {
             get
             {

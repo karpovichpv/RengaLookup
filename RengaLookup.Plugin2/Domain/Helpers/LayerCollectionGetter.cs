@@ -1,16 +1,17 @@
 ﻿using Renga;
+using RengaLookup.Plugin2.Model;
 
 namespace RengaLookup.Plugin2.Domain.Helpers
 {
     internal static class LayerCollectionGetter
     {
-        public static List<object> GetLayers(ILayerCollection layerCollection)
+        public static List<OutObject> GetLayers(ILayerCollection layerCollection)
         {
-            var result = new List<object>();
+            var result = new List<OutObject>();
             for (int i = 0; i < layerCollection.Count; i++)
             {
                 ILayer layer = layerCollection.Get(i);
-                result.Add(layer);
+                result.Add(new OutObject(layer, $"Layer. MaterialId {layer.MaterialId}"));
             }
 
             return result;

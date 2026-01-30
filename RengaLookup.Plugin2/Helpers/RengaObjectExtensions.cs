@@ -4,18 +4,18 @@ namespace RengaLookup.Plugin2.Helpers
 {
     internal static class RengaObjectExtensions
     {
-        public static List<RengaObject> ToRengaObjects(this List<object> objects)
+        public static List<OutObject> ToRengaObjects(this List<object> objects)
         {
-            List<RengaObject> result = [];
+            List<OutObject> result = [];
             foreach (object obj in objects)
-                result.Add(new RengaObject() { Name = obj.GetType().Name, Object = obj });
+                result.Add(new OutObject(obj, obj.GetType().Name));
 
             return result;
         }
 
-        public static RengaObject ToRengaObject(this object obj)
+        public static OutObject ToRengaObject(this object obj)
         {
-            return new RengaObject() { Name = obj.GetType().Name, Object = obj };
+            return new OutObject(obj, obj.GetType().Name);
         }
     }
 }

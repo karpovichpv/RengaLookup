@@ -7,16 +7,20 @@ namespace RengaLookup.Plugin2.Model.Data.ReflectionData
     {
         private protected readonly object _fatherObject;
 
-        private protected List<object> _childObjects;
+        private protected IEnumerable<OutObject> _childObjects;
         private protected Type _returnType;
         private protected object _returnObject;
 
-        protected ReflectionBaseData(object fatherObject, string label) : base(label)
+        protected ReflectionBaseData(object fatherObject, string label)
+            : base(label)
         {
-            _fatherObject = fatherObject;
+            if (fatherObject is OutObject outObject)
+                _fatherObject = outObject;
+            else
+                _fatherObject = fatherObject;
         }
 
-        public override List<object> WalkDown()
+        public override IEnumerable<OutObject> WalkDown()
         {
             return _childObjects;
         }
@@ -52,7 +56,8 @@ namespace RengaLookup.Plugin2.Model.Data.ReflectionData
                             .GetObjects(collection);
                     }
                     else
-                        _childObjects = [_returnObject];
+                        _childObjects = [
+                            new OutObject(_returnObject, _returnType.Name)];
 
                     return true;
                 }

@@ -1,6 +1,7 @@
 ﻿using Renga;
 using RengaLookup.Plugin2.Domain.Helpers;
 using RengaLookup.Plugin2.Domain.StylesExtensions;
+using RengaLookup.Plugin2.Model;
 using RengaLookup.Plugin2.Model.Data;
 using RengaLookup.Plugin2.Model.Data.ReflectionData;
 using System.Reflection;
@@ -15,9 +16,11 @@ namespace RengaLookup.Plugin2.Domain
 
         public ChiefCollector(object modelObject)
         {
-            _modelObject = modelObject
-                ?? throw new ArgumentNullException(nameof(modelObject));
-            _type = modelObject.GetType();
+            object resultedObject = modelObject is OutObject
+                ? (modelObject as OutObject).Object
+                : modelObject;
+            _modelObject = resultedObject ?? throw new ArgumentNullException(nameof(resultedObject));
+            _type = resultedObject.GetType();
             _app = new Application();
         }
 

@@ -12,9 +12,9 @@ namespace RengaLookup.Plugin2.Domain
             _app = new Application();
         }
 
-        public List<RengaObject> GetSelected()
+        public List<OutObject> GetSelected()
         {
-            List<RengaObject> result = [];
+            List<OutObject> result = [];
             if (_app is null)
                 return result;
 
@@ -30,7 +30,7 @@ namespace RengaLookup.Plugin2.Domain
             {
                 IModelObject modelObject = modelObjects.GetById(index);
                 if (modelObject != null)
-                    result.Add(new RengaObject() { Name = modelObject.Name, Object = modelObject });
+                    result.Add(new OutObject(modelObject, modelObject.Name));
             }
             return result;
         }

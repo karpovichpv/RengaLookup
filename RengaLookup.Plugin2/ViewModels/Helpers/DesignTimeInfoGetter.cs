@@ -34,16 +34,16 @@ namespace RengaLookup.Plugin2.ViewModels.Helpers
             ];
         }
 
-        internal static ObservableCollection<RengaObject> GetSelectedObjects()
+        internal static ObservableCollection<OutObject> GetSelectedObjects()
         {
-            List<RengaObject> objects =
+            List<OutObject> objects =
             [
-                new RengaObject(){Name = "Beam 1"},
-                new RengaObject(){Name = "Beam 2"},
-                new RengaObject(){Name = "Beam 3"},
+                new OutObject(null,"Beam 1"),
+                new OutObject(null,"Beam 2"),
+                new OutObject(null,"Beam 3"),
             ];
 
-            return new ObservableCollection<RengaObject>(objects);
+            return new ObservableCollection<OutObject>(objects);
         }
     }
 }

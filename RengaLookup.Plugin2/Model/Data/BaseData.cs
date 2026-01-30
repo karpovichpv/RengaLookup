@@ -22,7 +22,7 @@ namespace RengaLookup.Plugin2.Model.Data
         public string Label { get; }
         public string Value => GetValue();
         public bool CanGet => CheckIfCanGet();
-        public virtual List<object> WalkDown() => null;
+        public virtual IEnumerable<OutObject> WalkDown() => null;
 
         private protected virtual bool CheckIfCanGet() => false;
 

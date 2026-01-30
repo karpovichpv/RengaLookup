@@ -57,8 +57,8 @@ namespace RengaLookup.Plugin2
             if (model is null)
                 return;
 
-            List<RengaObject> selectedObjects = GetSelectedObjects(model);
-            RengaObject firstObject = selectedObjects.FirstOrDefault();
+            List<OutObject> selectedObjects = GetSelectedObjects(model);
+            OutObject firstObject = selectedObjects.FirstOrDefault();
             var control = new PluginWindow(
              new ViewModel()
              {
@@ -71,15 +71,15 @@ namespace RengaLookup.Plugin2
             control.Show();
         }
 
-        private static List<RengaObject> GetSelectedObjects(IModel model)
+        private static List<OutObject> GetSelectedObjects(IModel model)
         {
-            List<RengaObject> selectedObjects =
+            List<OutObject> selectedObjects =
                 new SelectedObjectsGetter().GetSelected();
             if (selectedObjects.Count == 0)
             {
                 return
                 [
-                    new() { Name = $"Model {model.Id}", Object = model }
+                    new(model, $"Model {model.Id}")
                 ];
             }
 
