@@ -29,13 +29,40 @@ namespace RengaLookup.Plugin2.Model.Data.ReflectionData
         {
             if (_returnObject != null)
             {
-                if (_returnObject
-                    is bool
-                    or double
-                    or int
-                    or byte
-                    or Int16
-                    or string)
+                if (_returnObject is int id)
+                {
+                    _object = _returnObject;
+                    if (Label == "LevelId")
+                    {
+                        IModelObject level = ModelObjectGetter.GetObject(id);
+                        if (level != null)
+                        {
+                            _childObjects = [
+                                new OutObject(level, level.Name)];
+                            return true;
+                        }
+                    }
+                    else if (Label == "MaterialId")
+                    {
+                        IMaterial material = MaterialGetter.GetMaterial(id);
+                        if (material != null)
+                        {
+                            _childObjects = [
+                                new OutObject(material, material.Name)];
+                            return true;
+                        }
+                    }
+
+                    return false;
+                }
+                else if (_returnObject
+                     is bool
+                     or double
+                     or byte
+                     or int
+                     or Int16
+                     or UInt16
+                     or string)
                 {
                     _object = _returnObject;
                     return false;
@@ -56,8 +83,10 @@ namespace RengaLookup.Plugin2.Model.Data.ReflectionData
                             .GetObjects(collection);
                     }
                     else
+                    {
                         _childObjects = [
                             new OutObject(_returnObject, _returnType.Name)];
+                    }
 
                     return true;
                 }
