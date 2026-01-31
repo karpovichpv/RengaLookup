@@ -17,5 +17,14 @@ namespace RengaLookup.Plugin2.Domain.Helpers
 
             return result;
         }
+
+        public static IModelObject GetObject(int id)
+        {
+            IModel model = ModelGetter.GetModel(new Application());
+            IModelObjectCollection objects = model.GetObjects();
+            IModelObject result = objects.GetById(id);
+
+            return result;
+        }
     }
 }
