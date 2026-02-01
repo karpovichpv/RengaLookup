@@ -52,6 +52,12 @@ namespace RengaLookup.Plugin2.Model.Data.ReflectionData
                             return true;
                         }
                     }
+                    else if (Label == "GetSegmentCount" && _fatherObject is IPolyCurve2D curve)
+                    {
+                        List<OutObject> curves = PolyCurve2dGetter.GetCurves(curve);
+                        _childObjects = [.. curves];
+                        return true;
+                    }
 
                     return false;
                 }
