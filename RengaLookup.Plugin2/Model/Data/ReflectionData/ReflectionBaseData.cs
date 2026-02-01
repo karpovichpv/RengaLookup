@@ -82,6 +82,12 @@ namespace RengaLookup.Plugin2.Model.Data.ReflectionData
                         _childObjects = ModelObjectGetter
                             .GetObjects(collection);
                     }
+                    else if (_returnType == typeof(IRebarUsageCollection))
+                    {
+                        var collection = (IRebarUsageCollection)_returnObject;
+                        _childObjects = RebarUsageCollection
+                            .GetUsages(collection);
+                    }
                     else
                     {
                         _childObjects = [
