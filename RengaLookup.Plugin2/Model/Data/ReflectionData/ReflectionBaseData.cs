@@ -58,6 +58,12 @@ namespace RengaLookup.Plugin2.Model.Data.ReflectionData
                         _childObjects = [.. curves];
                         return true;
                     }
+                    else if (Label == "StyleId" && _fatherObject is IBeamParams beamParams)
+                    {
+                        OutObject outObject = BeamStyleGetter.GetStyle(beamParams.StyleId);
+                        _childObjects = [outObject];
+                        return true;
+                    }
 
                     return false;
                 }
@@ -98,6 +104,11 @@ namespace RengaLookup.Plugin2.Model.Data.ReflectionData
                     {
                         var collection = (IPlacement3DCollection)_returnObject;
                         _childObjects = Placement3dGetter.Get(collection);
+                    }
+                    else if (_returnType == typeof(IRegion2DCollection))
+                    {
+                        var collection = (IRegion2DCollection)_returnObject;
+                        _childObjects = Region2DGetter.Get(collection);
                     }
                     else
                     {
