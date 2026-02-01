@@ -58,10 +58,18 @@ namespace RengaLookup.Plugin2.Model.Data.ReflectionData
                         _childObjects = [.. curves];
                         return true;
                     }
-                    else if (Label == "StyleId" && _fatherObject is IBeamParams beamParams)
+                    else if (Label == "StyleId")
                     {
-                        OutObject outObject = BeamStyleGetter.GetStyle(beamParams.StyleId);
-                        _childObjects = [outObject];
+                        if (_fatherObject is IBeamParams beamParams)
+                        {
+                            OutObject outObject = BeamStyleGetter.Get(beamParams);
+                            _childObjects = [outObject];
+                        }
+                        if (_fatherObject is IColumnParams columnParams)
+                        {
+                            OutObject outObject = ColumnStyleGetter.Get(columnParams);
+                            _childObjects = [outObject];
+                        }
                         return true;
                     }
 
