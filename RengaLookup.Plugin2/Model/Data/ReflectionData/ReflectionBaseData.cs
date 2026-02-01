@@ -88,6 +88,11 @@ namespace RengaLookup.Plugin2.Model.Data.ReflectionData
                         _childObjects = RebarUsageCollection
                             .GetUsages(collection);
                     }
+                    else if (_returnType == typeof(IPlacement3DCollection))
+                    {
+                        var collection = (IPlacement3DCollection)_returnObject;
+                        _childObjects = Placement3dGetter.Get(collection);
+                    }
                     else
                     {
                         _childObjects = [
