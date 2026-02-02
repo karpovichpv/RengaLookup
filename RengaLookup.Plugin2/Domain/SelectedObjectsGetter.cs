@@ -1,4 +1,5 @@
 ﻿using Renga;
+using RengaLookup.Plugin2.Domain.Helpers;
 using RengaLookup.Plugin2.Model;
 
 namespace RengaLookup.Plugin2.Domain

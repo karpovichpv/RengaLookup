@@ -118,6 +118,12 @@ namespace RengaLookup.Plugin2.Model.Data.ReflectionData
                         var collection = (IRegion2DCollection)_returnObject;
                         _childObjects = Region2DGetter.Get(collection);
                     }
+                    else if (_returnType == typeof(IModel))
+                    {
+                        IApplication app = new Application();
+                        IModel model = ModelGetter.GetModel(app);
+                        _childObjects = [new OutObject(model, "Model")];
+                    }
                     else
                     {
                         _childObjects = [

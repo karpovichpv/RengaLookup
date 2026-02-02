@@ -1,6 +1,6 @@
 ﻿using Renga;
 
-namespace RengaLookup.Plugin2.Domain
+namespace RengaLookup.Plugin2.Domain.Helpers
 {
     internal static class ModelGetter
     {

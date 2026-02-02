@@ -15,7 +15,9 @@ namespace RengaLookup.Plugin2.Model.Data.ReflectionData
             bool isVoidReturn = _info.ReturnType.Name.Equals("Void", StringComparison.InvariantCulture);
             bool hasForbidenName = ForbidenMethodNames.Any(n => n.Contains(info.Name));
             if (isParameterless && !isVoidReturn && !hasForbidenName)
+            {
                 _returnObject = _info.Invoke(_fatherObject, []);
+            }
         }
 
         private static string[] ForbidenMethodNames =>
@@ -29,7 +31,14 @@ namespace RengaLookup.Plugin2.Model.Data.ReflectionData
             "NewGuid",
             "CreateOperation",
             "CreateNewEntityArgs",
-            "GetEnumerator"
+            "GetEnumerator",
+            "Enable",
+            "Disable",
+            "CreateProject",
+            "Quit",
+            "Save",
+            "CreateOperation",
+            "StartOperation",
         ];
     }
 }

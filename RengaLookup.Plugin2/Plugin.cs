@@ -53,11 +53,7 @@ namespace RengaLookup.Plugin2
             if (_app is null)
                 return;
 
-            IModel model = _app.Project.Model;
-            if (model is null)
-                return;
-
-            List<OutObject> selectedObjects = GetSelectedObjects(model);
+            List<OutObject> selectedObjects = GetSelectedObjects();
             OutObject firstObject = selectedObjects.FirstOrDefault();
             var control = new PluginWindow(
              new ViewModel()
@@ -71,7 +67,7 @@ namespace RengaLookup.Plugin2
             control.Show();
         }
 
-        private static List<OutObject> GetSelectedObjects(IModel model)
+        private List<OutObject> GetSelectedObjects()
         {
             List<OutObject> selectedObjects =
                 new SelectedObjectsGetter().GetSelected();
@@ -79,7 +75,7 @@ namespace RengaLookup.Plugin2
             {
                 return
                 [
-                    new(model, $"Model {model.Id}")
+                    new(_app.Project, $"Project")
                 ];
             }
 
