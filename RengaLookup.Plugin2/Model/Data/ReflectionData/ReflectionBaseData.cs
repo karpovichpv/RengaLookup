@@ -124,6 +124,16 @@ namespace RengaLookup.Plugin2.Model.Data.ReflectionData
                         IModel model = ModelGetter.GetModel(app);
                         _childObjects = [new OutObject(model, "Model")];
                     }
+                    else if (_returnType == typeof(IEntityCollection))
+                    {
+                        var collection = (IEntityCollection)_returnObject;
+                        if (collection.Count > 0)
+                        {
+                            _childObjects = EntityCollectionGetter.Get(collection);
+                            return true;
+                        }
+                        return false;
+                    }
                     else
                     {
                         _childObjects = [
