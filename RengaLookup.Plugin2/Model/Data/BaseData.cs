@@ -4,7 +4,7 @@ namespace RengaLookup.Plugin2.Model.Data
 {
     public abstract class BaseData
     {
-        private protected object _object;
+        private protected object? _object;
 
         protected BaseData(string label)
         {
@@ -22,16 +22,13 @@ namespace RengaLookup.Plugin2.Model.Data
         public string Label { get; }
         public string Value => GetValue();
         public bool CanGet => CheckIfCanGet();
-        public virtual IEnumerable<OutObject> WalkDown() => null;
+        public virtual IEnumerable<OutObject> WalkDown() => [];
 
         private protected virtual bool CheckIfCanGet() => false;
 
         private protected virtual string GetValue()
         {
-            if (_object is null)
-                return string.Empty;
-
-            return _object.ToString();
+            return _object?.ToString() ?? string.Empty;
         }
     }
 }

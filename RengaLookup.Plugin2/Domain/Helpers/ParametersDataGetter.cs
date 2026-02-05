@@ -1,7 +1,7 @@
 ﻿using Renga;
 using RengaLookup.Plugin2.Model.Data;
 
-namespace RengaLookup.Plugin2.Domain.StylesExtensions
+namespace RengaLookup.Plugin2.Domain.Helpers
 {
     internal class ParametersDataGetter
     {
@@ -14,13 +14,15 @@ namespace RengaLookup.Plugin2.Domain.StylesExtensions
                 Guid id = ids.Get(i);
                 IParameter parameter = parameters.Get(id);
 
-                result.Add(new UnitValue(parameter.Definition.Name, GetParameterValue(parameter)));
+                object? value = GetParameterValue(parameter);
+                if (value != null)
+                    result.Add(new UnitValue(parameter.Definition.Name, value));
             }
 
             return result;
         }
 
-        private static object GetParameterValue(IParameter param)
+        private static object? GetParameterValue(IParameter param)
         {
             return param.ValueType switch
             {

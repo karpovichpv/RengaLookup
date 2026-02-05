@@ -13,11 +13,11 @@ namespace RengaLookup.Plugin2.ViewModels
 
         public ViewModel()
         {
-            _selectedObjects = DesignTimeInfoGetter.GetSelectedObjects();
+            _selectedObjects = [];
             _selectedObjectsGetter = new SelectedObjectsGetter();
         }
 
-        private RelayCommand _snoopSelectedObject;
+        private RelayCommand? _snoopSelectedObject;
         public RelayCommand SnoopSelectedObject
         {
             get
@@ -35,7 +35,7 @@ namespace RengaLookup.Plugin2.ViewModels
             }
         }
 
-        private RelayCommand _getSelectedObjects;
+        private RelayCommand? _getSelectedObjects;
         public RelayCommand GetSelectedObjects
         {
             get
@@ -47,13 +47,18 @@ namespace RengaLookup.Plugin2.ViewModels
             }
         }
 
-        private RelayCommand _runNewWindow;
-        public RelayCommand RunNewWindow
+        private RelayCommand? _runNewWindow;
+        public RelayCommand?
+            RunNewWindow
         {
             get
             {
                 return _runNewWindow ??= new RelayCommand(
-                        () => new NewInstanceRunner(SelectedData).RunNewInstance(),
+                        () =>
+                        {
+                            if (SelectedData != null)
+                                new NewInstanceRunner(SelectedData).RunNewInstance();
+                        },
                         () => SelectedData != null && SelectedData.CanGet)
 ;
             }
@@ -73,8 +78,8 @@ namespace RengaLookup.Plugin2.ViewModels
             }
         }
 
-        private OutObject _currentObject;
-        public OutObject CurrentObject
+        private OutObject? _currentObject;
+        public OutObject? CurrentObject
         {
             get
             {
@@ -87,8 +92,8 @@ namespace RengaLookup.Plugin2.ViewModels
             }
         }
 
-        private BaseData _selectedData;
-        public BaseData SelectedData
+        private BaseData? _selectedData;
+        public BaseData? SelectedData
         {
             get
             {
@@ -101,8 +106,8 @@ namespace RengaLookup.Plugin2.ViewModels
             }
         }
 
-        private ObservableCollection<BaseData> _data;
-        public ObservableCollection<BaseData> Data
+        private ObservableCollection<BaseData>? _data;
+        public ObservableCollection<BaseData>? Data
         {
             get
             {

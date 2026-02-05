@@ -1,6 +1,5 @@
 ﻿using Renga;
 using RengaLookup.Plugin2.Domain.Helpers;
-using RengaLookup.Plugin2.Domain.StylesExtensions;
 using RengaLookup.Plugin2.Model;
 using RengaLookup.Plugin2.Model.Data;
 using RengaLookup.Plugin2.Model.Data.ReflectionData;
@@ -12,16 +11,15 @@ namespace RengaLookup.Plugin2.Domain
     {
         private readonly object _modelObject;
         private readonly Type _type;
-        private readonly Application _app;
 
         public ChiefCollector(object modelObject)
         {
-            object resultedObject = modelObject is OutObject
-                ? (modelObject as OutObject).Object
-                : modelObject;
-            _modelObject = resultedObject ?? throw new ArgumentNullException(nameof(resultedObject));
+            object resultedObject = modelObject;
+            if (modelObject is OutObject outObject)
+                resultedObject = outObject.Object;
+
+            _modelObject = resultedObject;
             _type = resultedObject.GetType();
-            _app = new Application();
         }
 
         public IEnumerable<BaseData> Collect()
@@ -35,8 +33,12 @@ namespace RengaLookup.Plugin2.Domain
                 result = QuantitiesDataGetter.GetQuantities(quantityContainer);
             else
             {
-                bool isRengaObject = _type.FullName
-                    .Contains("ComObject", StringComparison.InvariantCultureIgnoreCase);
+                bool isRengaObject = false;
+                if (_type.FullName != null)
+                {
+                    isRengaObject = _type.FullName
+                       .Contains("ComObject", StringComparison.InvariantCultureIgnoreCase);
+                }
                 if (isRengaObject)
                     result.AddRange(CollectRengaInterfacesAndClasses());
                 else
@@ -55,9 +57,9 @@ namespace RengaLookup.Plugin2.Domain
         {
             Assembly executingAssembly = Assembly.GetExecutingAssembly();
             AssemblyName[] referencedAssemblies = executingAssembly.GetReferencedAssemblies();
-            List<AssemblyName> interopAssemblies = referencedAssemblies
-                .Where(a => a.FullName.Contains("Interop"))
-                .ToList();
+            List<AssemblyName> interopAssemblies = [
+                .. referencedAssemblies.Where(a => a.FullName.Contains("Interop"))
+                ];
 
             var result = new List<BaseData>();
             if (interopAssemblies != null)
@@ -75,12 +77,13 @@ namespace RengaLookup.Plugin2.Domain
                     {
                         PropertyInfo[] propertyInfos = @interface.GetProperties();
                         FieldInfo[] fieldInfos = @interface.GetFields();
-                        MethodInfo[] methodInfos = @interface.GetMethods(
+                        MethodInfo[] methodInfos = [
+                            .. @interface.GetMethods(
                             BindingFlags.Instance
                             | BindingFlags.Public
                             | BindingFlags.NonPublic
                             | BindingFlags.DeclaredOnly)
-                            .Where(m => !m.IsSpecialName).ToArray();
+                            .Where(m => !m.IsSpecialName)];
                         if (propertyInfos.Length + fieldInfos.Length + methodInfos.Length > 0)
                             result.Add(new InterfaceHeaderData(@interface.Name));
 
@@ -133,7 +136,7 @@ namespace RengaLookup.Plugin2.Domain
             IEnumerable<MethodInfo> methods = _type.GetMethods(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                 .Where(t => !t.IsSpecialName && t.IsSecurityCritical && t.Name != "FromStruct" && t.Name != "ToStruct");
 
-            if (methods.Count() > 0)
+            if (methods.Any())
                 result.Add(SubHeaderData.GetMethodsSubHeader());
 
             foreach (MethodInfo info in methods)

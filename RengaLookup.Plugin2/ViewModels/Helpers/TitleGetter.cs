@@ -10,17 +10,33 @@ namespace RengaLookup.Plugin2.ViewModels.Helpers
         public static string GetTitle(Type type)
         {
             Assembly assembly = type.Assembly;
-            string shortName = assembly.GetName().Name;
+            string? shortName = assembly.GetName().Name;
             string resName = $"{shortName}.Resources.BuildDate.txt";
 
-            string result;
-            using (Stream stream = assembly.GetManifestResourceStream(resName))
-            using (StreamReader reader = new StreamReader(stream))
+            string? result = string.Empty;
+            using (Stream? stream = assembly.GetManifestResourceStream(resName))
             {
-                result = reader.ReadLine().Replace("\r\n", string.Empty);
+                if (stream != null)
+                {
+                    using StreamReader reader = new(stream);
+                    {
+                        string? line = reader.ReadLine();
+                        result = line?.Replace("\r\n", string.Empty);
+                    }
+                }
             }
 
-            return $"{_name} v.{assembly.GetName().Version.ToString(4)} ({result})";
+            if (result != null)
+            {
+                AssemblyName assemblyName = assembly.GetName();
+                string? version = string.Empty;
+                if (assemblyName != null)
+                    version = assemblyName.Version?.ToString(4);
+
+                return $"{_name} v.{version} ({result})";
+            }
+
+            return string.Empty;
         }
     }
 }

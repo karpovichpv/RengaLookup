@@ -7,9 +7,9 @@ namespace RengaLookup.Plugin2.Model.Data.ReflectionData
     {
         private protected readonly object _fatherObject;
 
-        private protected IEnumerable<OutObject> _childObjects;
-        private protected Type _returnType;
-        private protected object _returnObject;
+        private protected IEnumerable<OutObject>? _childObjects;
+        private protected Type? _returnType;
+        private protected object? _returnObject;
 
         protected ReflectionBaseData(object fatherObject, string label)
             : base(label)
@@ -22,19 +22,22 @@ namespace RengaLookup.Plugin2.Model.Data.ReflectionData
 
         public override IEnumerable<OutObject> WalkDown()
         {
+            if (_childObjects == null)
+                return [];
+
             return _childObjects;
         }
 
         private protected override bool CheckIfCanGet()
         {
-            if (_returnObject != null)
+            if (_returnObject != null && _returnType != null)
             {
                 if (_returnObject is int id)
                 {
                     _object = _returnObject;
                     if (Label == "LevelId")
                     {
-                        IModelObject level = ModelObjectGetter.GetObject(id);
+                        IModelObject? level = ModelObjectGetter.GetObject(id);
                         if (level != null)
                         {
                             _childObjects = [
@@ -121,8 +124,9 @@ namespace RengaLookup.Plugin2.Model.Data.ReflectionData
                     else if (_returnType == typeof(IModel))
                     {
                         IApplication app = new Application();
-                        IModel model = ModelGetter.GetModel(app);
-                        _childObjects = [new OutObject(model, "Model")];
+                        IModel? model = ModelGetter.GetModel(app);
+                        if (model != null)
+                            _childObjects = [new OutObject(model, "Model")];
                     }
                     else if (_returnType == typeof(IEntityCollection))
                     {
@@ -144,7 +148,12 @@ namespace RengaLookup.Plugin2.Model.Data.ReflectionData
                 }
             }
             else
-                _object = _returnType;
+            {
+                if (_returnType != null)
+                    _object = _returnType;
+                else
+                    _object = "returnObject is null";
+            }
 
             return false;
         }

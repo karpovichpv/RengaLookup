@@ -9,7 +9,7 @@ namespace RengaLookup.Plugin2
 {
     public class Plugin : IPlugin
     {
-        private IApplication _app;
+        private IApplication? _app;
         private readonly List<ActionEventSource> _eventSources = [];
 
         public bool Initialize(string pluginFolder)
@@ -54,24 +54,28 @@ namespace RengaLookup.Plugin2
                 return;
 
             List<OutObject> selectedObjects = GetSelectedObjects();
-            OutObject firstObject = selectedObjects.FirstOrDefault();
-            var control = new PluginWindow(
-             new ViewModel()
-             {
-                 CurrentObject = selectedObjects.FirstOrDefault(),
-                 SelectedObjects = selectedObjects.ToObservableCollection(),
-                 Data = new ChiefCollector(firstObject.Object)
-                    .Collect()
-                    .ToObservableCollection()
-             });
-            control.Show();
+            OutObject? firstObject = selectedObjects?.FirstOrDefault();
+            OutObject? outObject = selectedObjects?.FirstOrDefault();
+            if (firstObject != null && outObject != null && selectedObjects != null)
+            {
+                var control = new PluginWindow(
+                 new ViewModel()
+                 {
+                     CurrentObject = outObject,
+                     SelectedObjects = selectedObjects.ToObservableCollection(),
+                     Data = new ChiefCollector(firstObject.Object)
+                        .Collect()
+                        .ToObservableCollection()
+                 });
+                control.Show();
+            }
         }
 
         private List<OutObject> GetSelectedObjects()
         {
             List<OutObject> selectedObjects =
                 new SelectedObjectsGetter().GetSelected();
-            if (selectedObjects.Count == 0)
+            if (selectedObjects.Count == 0 && _app != null)
             {
                 return
                 [

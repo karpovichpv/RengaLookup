@@ -1,7 +1,7 @@
 ﻿using Renga;
 using RengaLookup.Plugin2.Model.Data;
 
-namespace RengaLookup.Plugin2.Domain.StylesExtensions
+namespace RengaLookup.Plugin2.Domain.Helpers
 {
     internal class PropertiesDataGetter
     {
@@ -11,16 +11,18 @@ namespace RengaLookup.Plugin2.Domain.StylesExtensions
             var ids = properties.GetIds();
             for (int i = 0; i < ids.Count; ++i)
             {
-                Renga.IProperty property = properties.Get(ids.Get(i));
-                result.Add(new UnitValue(property.Name, GetPropertyValue(property)));
+                IProperty property = properties.Get(ids.Get(i));
+                object? value = GetPropertyValue(property);
+                if (value != null)
+                    result.Add(new UnitValue(property.Name, value));
             }
 
             return result;
         }
 
-        private static object GetPropertyValue(IProperty prop)
+        private static object? GetPropertyValue(IProperty prop)
         {
-            return prop.Type switch
+            return prop?.Type switch
             {
                 PropertyType.PropertyType_Angle => prop.GetAngleValue(AngleUnit.AngleUnit_Degrees),
                 PropertyType.PropertyType_Double => prop.GetDoubleValue(),
@@ -33,6 +35,7 @@ namespace RengaLookup.Plugin2.Domain.StylesExtensions
                 PropertyType.PropertyType_Logical => prop.GetLogicalValue(),
                 PropertyType.PropertyType_Mass => prop.GetMassValue(MassUnit.MassUnit_Kilograms),
                 PropertyType.PropertyType_Volume => prop.GetVolumeValue(VolumeUnit.VolumeUnit_Meters3),
+                PropertyType.PropertyType_Undefined => throw new NotImplementedException(),
                 _ => null,
             };
         }

@@ -13,12 +13,12 @@ namespace RengaLookup.Plugin2.ViewModels
 
         public NewInstanceRunner(BaseData selectedData)
         {
-            _selectedData = selectedData;
+            _selectedData = selectedData ?? throw new ArgumentNullException(nameof(selectedData));
         }
 
         public void RunNewInstance()
         {
-            ViewModel subViewModel = GetViewModel();
+            ViewModel? subViewModel = GetViewModel();
 
             var window = new PluginWindow
             {
@@ -27,19 +27,25 @@ namespace RengaLookup.Plugin2.ViewModels
             window.Show();
         }
 
-        private ViewModel GetViewModel()
+        private ViewModel? GetViewModel()
         {
             IEnumerable<OutObject> objects = _selectedData.WalkDown();
-            ViewModel subViewModel = new()
+            OutObject? outObject = objects.FirstOrDefault();
+            OutObject? modelObject = objects.FirstOrDefault();
+            if (outObject != null && modelObject != null)
             {
-                CurrentObject = objects.FirstOrDefault().ToRengaObject(),
-                SelectedObjects = objects.ToObservableCollection(),
-                Data = new ChiefCollector(objects.FirstOrDefault())
-                    .Collect()
-                    .ToObservableCollection()
-            };
+                ViewModel subViewModel = new()
+                {
+                    CurrentObject = outObject.ToRengaObject(),
+                    SelectedObjects = objects.ToObservableCollection(),
+                    Data = new ChiefCollector(modelObject)
+                        .Collect()
+                        .ToObservableCollection()
+                };
+                return subViewModel;
+            }
 
-            return subViewModel;
+            return null;
         }
     }
 }

@@ -4,19 +4,38 @@ namespace RengaLookup.Plugin2.Domain.Helpers
 {
     internal static class ModelGetter
     {
-        public static IModel GetModel(IApplication app)
+        public static IModel? GetModel(IApplication? app)
         {
-            if (app.ActiveView.Type is ViewType.ViewType_View3D or ViewType.ViewType_Level)
+
+            if (app?.ActiveView.Type is ViewType.ViewType_View3D or ViewType.ViewType_Level)
                 return app.Project.Model;
-            else if (app.ActiveView.Type is ViewType.ViewType_Assembly)
+            else if (app?.ActiveView.Type is ViewType.ViewType_Assembly)
             {
-                var representedId = (app.ActiveView as IModelView).RepresentedEntityId;
-                return app.Project.Assemblies.GetById(representedId) as IModel;
+                IModelView? modelView = (app.ActiveView as IModelView);
+                if (modelView != null)
+                {
+                    var representedId = modelView.RepresentedEntityId;
+                    IEntityCollection assemblies = app.Project.Assemblies;
+                    if (assemblies != null)
+                    {
+                        if (assemblies.GetById(representedId) is IModel model)
+                            return model;
+                    }
+                }
             }
-            else if (app.ActiveView.Type is ViewType.ViewType_Drawing)
+            else if (app?.ActiveView.Type is ViewType.ViewType_Drawing)
             {
-                var representedId = (app.ActiveView as IModelView).RepresentedEntityId;
-                return app.Project.Drawings2.GetById(representedId) as IModel;
+                IModelView? modelView = (app.ActiveView as IModelView);
+                if (modelView != null)
+                {
+                    var representedId = modelView.RepresentedEntityId;
+                    IEntityCollection drawings = app.Project.Drawings2;
+                    if (drawings != null)
+                    {
+                        if (drawings.GetById(representedId) is IModel model)
+                            return model;
+                    }
+                }
             }
 
             return null;

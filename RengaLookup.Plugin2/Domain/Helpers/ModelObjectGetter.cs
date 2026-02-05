@@ -18,13 +18,18 @@ namespace RengaLookup.Plugin2.Domain.Helpers
             return result;
         }
 
-        public static IModelObject GetObject(int id)
+        public static IModelObject? GetObject(int id)
         {
-            IModel model = ModelGetter.GetModel(new Application());
-            IModelObjectCollection objects = model.GetObjects();
-            IModelObject result = objects.GetById(id);
+            Application? app = new();
+            IModel? model = ModelGetter.GetModel(app);
+            IModelObjectCollection? objects = model?.GetObjects();
+            if (objects != null)
+            {
+                IModelObject? result = objects.GetById(id);
+                return result;
+            }
 
-            return result;
+            return null;
         }
     }
 }
