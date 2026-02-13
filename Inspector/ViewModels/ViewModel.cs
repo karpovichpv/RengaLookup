@@ -65,8 +65,7 @@ namespace Inspector.ViewModels
         }
 
         private RelayCommand? _runNewWindow;
-        public RelayCommand?
-            RunNewWindow
+        public RelayCommand? RunNewWindow
         {
             get
             {
