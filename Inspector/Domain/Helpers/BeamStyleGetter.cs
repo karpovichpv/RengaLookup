@@ -1,5 +1,5 @@
-﻿using Renga;
-using Inspector.Model;
+﻿using Inspector.Model;
+using Renga;
 
 namespace Inspector.Domain.Helpers
 {
@@ -7,7 +7,7 @@ namespace Inspector.Domain.Helpers
     {
         public static OutObject Get(IBeamParams beamParams)
         {
-            IApplication app = new Application();
+            IApplication app = ApplicationSingleton.GetApp();
             IProject project = app.Project;
             IBeamStyle style = project.BeamStyleManager.GetBeamStyle(beamParams.StyleId);
 

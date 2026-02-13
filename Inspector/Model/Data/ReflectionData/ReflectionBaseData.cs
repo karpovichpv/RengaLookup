@@ -1,5 +1,5 @@
-﻿using Renga;
-using Inspector.Domain.Helpers;
+﻿using Inspector.Domain.Helpers;
+using Renga;
 
 namespace Inspector.Model.Data.ReflectionData
 {
@@ -123,7 +123,7 @@ namespace Inspector.Model.Data.ReflectionData
                     }
                     else if (_returnType == typeof(IModel))
                     {
-                        IApplication app = new Application();
+                        IApplication app = ApplicationSingleton.GetApp();
                         IModel? model = ModelGetter.GetModel(app);
                         if (model != null)
                             _childObjects = [new OutObject(model, "Model")];

@@ -14,7 +14,7 @@ namespace Inspector
 
         public bool Initialize(string pluginFolder)
         {
-            _app = new Application();
+            _app = ApplicationSingleton.GetApp();
             var ui = _app.UI;
             var panelExtension = ui.CreateUIPanelExtension();
 

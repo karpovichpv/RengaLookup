@@ -6,7 +6,7 @@ namespace Inspector.Domain.Helpers
     {
         public static IMaterial GetMaterial(int id)
         {
-            IApplication app = new Application();
+            IApplication app = ApplicationSingleton.GetApp();
             IProject project = app.Project;
             IMaterialManager materialManager = project.MaterialManager;
             IMaterial material = materialManager.GetMaterial(id);

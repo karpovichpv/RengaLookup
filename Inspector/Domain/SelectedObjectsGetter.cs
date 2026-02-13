@@ -1,16 +1,16 @@
-﻿using Renga;
-using Inspector.Domain.Helpers;
+﻿using Inspector.Domain.Helpers;
 using Inspector.Model;
+using Renga;
 
 namespace Inspector.Domain
 {
     internal class SelectedObjectsGetter
     {
-        private readonly Application _app;
+        private readonly IApplication _app;
 
         public SelectedObjectsGetter()
         {
-            _app = new Application();
+            _app = ApplicationSingleton.GetApp();
         }
 
         public List<OutObject> GetSelected()
