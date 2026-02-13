@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 
 namespace Inspector.ViewModels
 {
-    public class ViewModel : ViewModelBase
+    public class ViewModel : ViewModelBase, IViewModel
     {
         private readonly SelectedObjectsGetter _selectedObjectsGetter;
 

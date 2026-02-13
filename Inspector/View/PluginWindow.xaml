@@ -11,7 +11,7 @@
     Title="{Binding Title}"
     Width="800"
     Height="450"
-    d:DataContext="{d:DesignInstance viewModel:ViewModel,
+    d:DataContext="{d:DesignInstance viewModel:DesignTimeViewModel,
                                      IsDesignTimeCreatable=True}"
     ScrollViewer.CanContentScroll="False"
     mc:Ignorable="d">
