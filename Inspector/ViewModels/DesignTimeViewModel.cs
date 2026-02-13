@@ -90,6 +90,11 @@ namespace Inspector.ViewModels
                     Label = "FilePath",
                     Value = "C:/Program Files/Renga Standard/Samples/Apartment building.rnp",
                 },
+                new DesignTimeData()
+                {
+                    Label = "DeleteObjectByUniqueIdS",
+                    Value = "System.Void",
+                },
             ];
         }
     }
