@@ -1,7 +1,6 @@
 ﻿using Inspector.Domain;
 using Inspector.Helpers;
 using Inspector.Model;
-using Inspector.Model.Data;
 using Inspector.View;
 using Inspector.ViewModels.Helpers;
 
@@ -9,9 +8,9 @@ namespace Inspector.ViewModels
 {
     internal class NewInstanceRunner
     {
-        private readonly BaseData _selectedData;
+        private readonly IData _selectedData;
 
-        public NewInstanceRunner(BaseData selectedData)
+        public NewInstanceRunner(IData selectedData)
         {
             _selectedData = selectedData ?? throw new ArgumentNullException(nameof(selectedData));
         }
@@ -29,9 +28,9 @@ namespace Inspector.ViewModels
 
         private ViewModel? GetViewModel()
         {
-            IEnumerable<OutObject> objects = _selectedData.WalkDown();
-            OutObject? outObject = objects.FirstOrDefault();
-            OutObject? modelObject = objects.FirstOrDefault();
+            IEnumerable<IOutObject> objects = _selectedData.WalkDown();
+            IOutObject? outObject = objects.FirstOrDefault();
+            IOutObject? modelObject = objects.FirstOrDefault();
             if (outObject != null && modelObject != null)
             {
                 ViewModel subViewModel = new()

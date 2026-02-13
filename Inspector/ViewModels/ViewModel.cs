@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Inspector.Domain;
 using Inspector.Model;
-using Inspector.Model.Data;
+using Inspector.ViewModels.Data;
 using Inspector.ViewModels.Helpers;
 using System.Collections.ObjectModel;
 
@@ -13,8 +13,25 @@ namespace Inspector.ViewModels
 
         public ViewModel()
         {
-            _selectedObjects = [];
+            IEnumerable<IOutObject> selectedObjects =
+            [
+                new DesignTimeOutObject(),
+                new DesignTimeOutObject(),
+                new DesignTimeOutObject(),
+            ];
+            _selectedObjects = new ObservableCollection<IOutObject>(selectedObjects);
             _selectedObjectsGetter = new SelectedObjectsGetter();
+            IEnumerable<IData> data =
+            [
+                new DesignTimeData(),
+                new DesignTimeData(),
+                new DesignTimeData(),
+                new DesignTimeData(),
+                new DesignTimeData(),
+                new DesignTimeData(),
+                new DesignTimeData(),
+            ];
+            _data = new ObservableCollection<IData>(data);
         }
 
         private RelayCommand? _snoopSelectedObject;
@@ -64,8 +81,8 @@ namespace Inspector.ViewModels
             }
         }
 
-        private ObservableCollection<OutObject> _selectedObjects = [];
-        public ObservableCollection<OutObject> SelectedObjects
+        private ObservableCollection<IOutObject> _selectedObjects = [];
+        public ObservableCollection<IOutObject> SelectedObjects
         {
             get
             {
@@ -78,8 +95,8 @@ namespace Inspector.ViewModels
             }
         }
 
-        private OutObject? _currentObject;
-        public OutObject? CurrentObject
+        private IOutObject? _currentObject;
+        public IOutObject? CurrentObject
         {
             get
             {
@@ -92,8 +109,8 @@ namespace Inspector.ViewModels
             }
         }
 
-        private BaseData? _selectedData;
-        public BaseData? SelectedData
+        private IData? _selectedData;
+        public IData? SelectedData
         {
             get
             {
@@ -106,8 +123,8 @@ namespace Inspector.ViewModels
             }
         }
 
-        private ObservableCollection<BaseData>? _data;
-        public ObservableCollection<BaseData>? Data
+        private ObservableCollection<IData>? _data;
+        public ObservableCollection<IData>? Data
         {
             get
             {

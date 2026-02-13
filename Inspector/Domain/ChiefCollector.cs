@@ -1,8 +1,8 @@
-﻿using Renga;
-using Inspector.Domain.Helpers;
+﻿using Inspector.Domain.Helpers;
 using Inspector.Model;
 using Inspector.Model.Data;
 using Inspector.Model.Data.ReflectionData;
+using Renga;
 using System.Reflection;
 
 namespace Inspector.Domain
@@ -22,7 +22,7 @@ namespace Inspector.Domain
             _type = resultedObject.GetType();
         }
 
-        public IEnumerable<BaseData> Collect()
+        public IEnumerable<IData> Collect()
         {
             var result = new List<BaseData>();
             if (_modelObject is IParameterContainer parameterContainer)

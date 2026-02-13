@@ -2,7 +2,7 @@
 
 namespace Inspector.Model.Data
 {
-    public abstract class BaseData
+    public abstract class BaseData : IData
     {
         private protected object? _object;
 

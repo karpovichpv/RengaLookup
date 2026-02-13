@@ -53,9 +53,9 @@ namespace Inspector
             if (_app is null)
                 return;
 
-            List<OutObject> selectedObjects = GetSelectedObjects();
-            OutObject? firstObject = selectedObjects?.FirstOrDefault();
-            OutObject? outObject = selectedObjects?.FirstOrDefault();
+            List<IOutObject> selectedObjects = GetSelectedObjects();
+            IOutObject? firstObject = selectedObjects?.FirstOrDefault();
+            IOutObject? outObject = selectedObjects?.FirstOrDefault();
             if (firstObject != null && outObject != null && selectedObjects != null)
             {
                 var control = new PluginWindow(
@@ -71,15 +71,15 @@ namespace Inspector
             }
         }
 
-        private List<OutObject> GetSelectedObjects()
+        private List<IOutObject> GetSelectedObjects()
         {
-            List<OutObject> selectedObjects =
+            List<IOutObject> selectedObjects =
                 new SelectedObjectsGetter().GetSelected();
             if (selectedObjects.Count == 0 && _app != null)
             {
                 return
                 [
-                    new(_app.Project, $"Project")
+                    new OutObject(_app.Project, $"Project")
                 ];
             }
 

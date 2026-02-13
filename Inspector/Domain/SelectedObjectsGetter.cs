@@ -13,9 +13,9 @@ namespace Inspector.Domain
             _app = ApplicationSingleton.GetApp();
         }
 
-        public List<OutObject> GetSelected()
+        public List<IOutObject> GetSelected()
         {
-            List<OutObject> result = [];
+            List<IOutObject> result = [];
             if (_app is null)
                 return result;
 

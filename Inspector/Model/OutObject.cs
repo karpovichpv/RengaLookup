@@ -1,6 +1,6 @@
 ﻿namespace Inspector.Model
 {
-    public class OutObject
+    public class OutObject : IOutObject
     {
         public OutObject(object @object, string name)
         {
