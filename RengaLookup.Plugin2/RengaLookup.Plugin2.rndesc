@@ -1,9 +1,0 @@
-﻿<RengaPlugin>
-	<Name>RengaLookup2</Name>
-	<Version>1.0</Version>
-	<RequiredAPIVersion>2.44</RequiredAPIVersion>
-	<Vendor>Renga Software LLC</Vendor>
-	<Copyright>Copyright Renga Software LLC, 2025. All rights reserved.</Copyright>
-	<PluginFilename>C:\other\mygithub\RengaProjects\RengaLookup\RengaLookup.Plugin2\bin\Debug\RengaLookup.Plugin2\RengaLookup.Plugin2.dll</PluginFilename>
-	<PluginType>Net8</PluginType>
-</RengaPlugin>

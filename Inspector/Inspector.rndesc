@@ -1,0 +1,9 @@
+﻿<RengaPlugin>
+	<Name>Inspector</Name>
+	<Version>1.0</Version>
+	<RequiredAPIVersion>2.44</RequiredAPIVersion>
+	<Vendor>Pavel Karpovich</Vendor>
+	<Copyright>Copyright Pavel Karpovich. All rights reserved.</Copyright>
+	<PluginFilename>C:\other\mygithub\RengaProjects\RengaInspector\Inspector\bin\Debug\Inspector\Inspector.dll</PluginFilename>
+	<PluginType>Net8</PluginType>
+</RengaPlugin>
