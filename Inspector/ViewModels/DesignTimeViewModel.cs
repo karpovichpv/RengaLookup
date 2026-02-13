@@ -52,11 +52,13 @@ namespace Inspector.ViewModels
                 {
                     IsInterfaceHeader = true,
                     Label = "IModelObject",
+                    Value = ""
                 },
                 new DesignTimeData()
                 {
                     IsSubHeader = true,
-                    Label = "Properties"
+                    Label = "Properties",
+                    Value = ""
                 },
                 new DesignTimeData()
                 {

@@ -29,14 +29,7 @@
         SelectedItem="{Binding SelectedData}">
         <ListBox.ItemContainerStyle>
             <Style TargetType="ListBoxItem">
-                <Style.Triggers>
-                    <!--  First item (index 0)  -->
-                    <Trigger Property="ItemsControl.AlternationIndex" Value="0">
-                        <Setter Property="Margin" Value="-2" />
-                        <Setter Property="BorderThickness" Value="0" />
-                    </Trigger>
-
-                </Style.Triggers>
+                <Style.Triggers />
 
                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                 <Setter Property="Margin" Value="-2" />
