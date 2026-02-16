@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Inspector.Domain;
 using Inspector.Model;
-using Inspector.ViewModels.Data;
 using Inspector.ViewModels.Helpers;
 using System.Collections.ObjectModel;
 
@@ -13,25 +12,7 @@ namespace Inspector.ViewModels
 
         public ViewModel()
         {
-            IEnumerable<IOutObject> selectedObjects =
-            [
-                new DesignTimeOutObject(),
-                new DesignTimeOutObject(),
-                new DesignTimeOutObject(),
-            ];
-            _selectedObjects = new ObservableCollection<IOutObject>(selectedObjects);
             _selectedObjectsGetter = new SelectedObjectsGetter();
-            IEnumerable<IData> data =
-            [
-                new DesignTimeData(),
-                new DesignTimeData(),
-                new DesignTimeData(),
-                new DesignTimeData(),
-                new DesignTimeData(),
-                new DesignTimeData(),
-                new DesignTimeData(),
-            ];
-            _data = new ObservableCollection<IData>(data);
         }
 
         private RelayCommand? _snoopSelectedObject;
@@ -60,6 +41,13 @@ namespace Inspector.ViewModels
                 return _getSelectedObjects ??= new RelayCommand(() =>
                 {
                     SelectedObjects = _selectedObjectsGetter.GetSelected().ToObservableCollection();
+                    IOutObject? outObject = SelectedObjects.FirstOrDefault();
+                    if (outObject != null)
+                    {
+                        CurrentObject = outObject;
+                        var infoCollector = new ChiefCollector(outObject.Object);
+                        Data = infoCollector.Collect().ToObservableCollection();
+                    }
                 });
             }
         }
