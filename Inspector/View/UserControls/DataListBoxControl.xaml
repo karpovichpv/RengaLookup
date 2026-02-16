@@ -29,14 +29,14 @@
                 <GridViewColumn Header="Name">
                     <GridViewColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBox Text="{Binding Label, Mode=OneWay}" Style="{StaticResource DataTextBox}"/>
+                            <TextBox Style="{StaticResource DataTextBox}" Text="{Binding Label, Mode=OneWay}" />
                         </DataTemplate>
                     </GridViewColumn.CellTemplate>
                 </GridViewColumn>
-                <GridViewColumn Header="Age">
+                <GridViewColumn Header="Value">
                     <GridViewColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBox Text="{Binding Value, Mode=OneWay}" Style="{StaticResource DataTextBox}" />
+                            <TextBox Style="{StaticResource DataTextBox}" Text="{Binding Value, Mode=OneWay}" />
                         </DataTemplate>
                     </GridViewColumn.CellTemplate>
                 </GridViewColumn>

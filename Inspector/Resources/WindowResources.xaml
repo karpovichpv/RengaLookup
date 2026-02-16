@@ -24,6 +24,11 @@
         </Style.Triggers>
     </Style>
 
+    <Style TargetType="GridViewColumnHeader">
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+    </Style>
+
     <Style
         x:Key="LabelDataTextBox"
         BasedOn="{StaticResource DataTextBox}"
