@@ -15,17 +15,25 @@ namespace Inspector
 
         public bool Initialize(string pluginFolder)
         {
-            _app = ApplicationSingleton.GetApp();
-            var ui = _app.UI;
+            try
+            {
 
-            var panelExtension = ui.CreateUIPanelExtension();
-            string icoPath = pluginFolder + @"\ico.png";
-            _icon = ui.CreateImage();
-            _icon?.LoadFromFile(icoPath);
+                _app = ApplicationSingleton.GetApp();
+                var ui = _app.UI;
 
-            panelExtension.AddToolButton(CreateAction(ui));
+                var panelExtension = ui.CreateUIPanelExtension();
+                string icoPath = pluginFolder + @"\ico.png";
+                _icon = ui.CreateImage();
+                _icon?.LoadFromFile(icoPath);
 
-            ui.AddExtensionToPrimaryPanel(panelExtension);
+                panelExtension.AddToolButton(CreateAction(ui));
+
+                ui.AddExtensionToPrimaryPanel(panelExtension);
+            }
+            catch (Exception ex)
+            {
+                CrashLogCreator.WriteCrashLog(ex, GetType());
+            }
 
             return true;
         }
@@ -40,7 +48,9 @@ namespace Inspector
 
         public IAction CreateAction(IUI ui)
         {
-            var action = ui.CreateAction();
+            throw new Exception("Some ex");
+
+            IAction action = ui.CreateAction();
             action.DisplayName = PluginConstants.PluginName;
             action.Icon = _icon;
 
