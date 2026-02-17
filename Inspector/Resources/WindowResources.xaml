@@ -37,6 +37,7 @@
         TargetType="TextBox">
         <Setter Property="Padding" Value="0" />
         <Setter Property="Margin" Value="0" />
+        <Setter Property="Focusable" Value="False" />
     </Style>
 
     <Style

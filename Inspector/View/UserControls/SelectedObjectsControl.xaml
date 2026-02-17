@@ -40,7 +40,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        <TextBox Style="{StaticResource DataTextBox}" Text="{Binding Name, Mode=OneWay}" />
+                        <TextBox Style="{StaticResource LabelDataTextBox}" Text="{Binding Name, Mode=OneWay}" />
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>

@@ -21,7 +21,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <ListView
-        bh:ListBoxItemBehaviors.DoubleClickCommand="{Binding RunNewWindow}"
+        bh:ListViewItemBehaviors.DoubleClickCommand="{Binding RunNewWindow}"
         ItemsSource="{Binding Data}"
         SelectedItem="{Binding SelectedData}">
         <ListView.View>
@@ -29,14 +29,14 @@
                 <GridViewColumn Header="Name">
                     <GridViewColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBox Style="{StaticResource DataTextBox}" Text="{Binding Label, Mode=OneWay}" />
+                            <TextBox Style="{StaticResource LabelDataTextBox}" Text="{Binding Label, Mode=OneWay}" />
                         </DataTemplate>
                     </GridViewColumn.CellTemplate>
                 </GridViewColumn>
                 <GridViewColumn Header="Value">
                     <GridViewColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBox Style="{StaticResource DataTextBox}" Text="{Binding Value, Mode=OneWay}" />
+                            <TextBox Style="{StaticResource ValueDataTextBox}" Text="{Binding Value, Mode=OneWay}" />
                         </DataTemplate>
                     </GridViewColumn.CellTemplate>
                 </GridViewColumn>

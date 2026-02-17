@@ -4,11 +4,11 @@ using System.Windows.Input;
 
 namespace Inspector.View.Behaviours
 {
-    public static class ListBoxItemBehaviors
+    public static class ListViewItemBehaviors
     {
         public static readonly DependencyProperty DoubleClickCommandProperty =
             DependencyProperty.RegisterAttached("DoubleClickCommand",
-                typeof(ICommand), typeof(ListBoxItemBehaviors),
+                typeof(ICommand), typeof(ListViewItemBehaviors),
                 new PropertyMetadata(null, OnChanged));
 
         public static void SetDoubleClickCommand(UIElement element, ICommand value)
@@ -19,13 +19,13 @@ namespace Inspector.View.Behaviours
 
         private static void OnChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is ListBox listBox)
+            if (d is ListView control)
             {
-                listBox.MouseDoubleClick += (s, args) =>
+                control.MouseDoubleClick += (s, args) =>
                 {
-                    var command = GetDoubleClickCommand(listBox);
-                    if (command?.CanExecute(listBox.SelectedItem) == true)
-                        command.Execute(listBox.SelectedItem);
+                    var command = GetDoubleClickCommand(control);
+                    if (command?.CanExecute(control.SelectedItem) == true)
+                        command.Execute(control.SelectedItem);
                 };
             }
         }

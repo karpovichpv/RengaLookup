@@ -1,4 +1,5 @@
 using Inspector.Domain;
+using Inspector.Helpers;
 using Inspector.Model;
 using Inspector.View;
 using Inspector.ViewModels;
@@ -48,8 +49,6 @@ namespace Inspector
 
         public IAction CreateAction(IUI ui)
         {
-            throw new Exception("Some ex");
-
             IAction action = ui.CreateAction();
             action.DisplayName = PluginConstants.PluginName;
             action.Icon = _icon;
