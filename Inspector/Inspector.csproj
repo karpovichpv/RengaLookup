@@ -26,6 +26,9 @@
    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
  </ItemGroup>
  <ItemGroup>
+   <None Update="ico.png">
+     <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+   </None>
    <None Update="Inspector.rndesc">
      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
    </None>

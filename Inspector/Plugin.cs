@@ -10,13 +10,18 @@ namespace Inspector
     public class Plugin : IPlugin
     {
         private IApplication? _app;
+        private IImage? _icon;
         private readonly List<ActionEventSource> _eventSources = [];
 
         public bool Initialize(string pluginFolder)
         {
             _app = ApplicationSingleton.GetApp();
             var ui = _app.UI;
+
             var panelExtension = ui.CreateUIPanelExtension();
+            string icoPath = pluginFolder + @"\ico.png";
+            _icon = ui.CreateImage();
+            _icon?.LoadFromFile(icoPath);
 
             panelExtension.AddToolButton(CreateAction(ui));
 
@@ -37,6 +42,7 @@ namespace Inspector
         {
             var action = ui.CreateAction();
             action.DisplayName = PluginConstants.PluginName;
+            action.Icon = _icon;
 
             var events = new ActionEventSource(action);
             events.Triggered += (s, e) =>
