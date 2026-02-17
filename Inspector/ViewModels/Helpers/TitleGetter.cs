@@ -9,9 +9,26 @@ namespace Inspector.ViewModels.Helpers
         {
             Assembly assembly = type.Assembly;
             string? shortName = assembly.GetName().Name;
+            string? buildDate = GetBuildDate(assembly, shortName);
+
+            if (buildDate != null)
+            {
+                AssemblyName assemblyName = assembly.GetName();
+                string? version = string.Empty;
+                if (assemblyName != null)
+                    version = assemblyName.Version?.ToString(4);
+
+                return $"{PluginConstants.PluginName} v.{version}-beta ({buildDate})";
+            }
+
+            return string.Empty;
+        }
+
+        private static string? GetBuildDate(Assembly assembly, string? shortName)
+        {
             string resName = $"{shortName}.Resources.BuildDate.txt";
 
-            string? result = string.Empty;
+            string? buildDate = string.Empty;
             using (Stream? stream = assembly.GetManifestResourceStream(resName))
             {
                 if (stream != null)
@@ -19,22 +36,12 @@ namespace Inspector.ViewModels.Helpers
                     using StreamReader reader = new(stream);
                     {
                         string? line = reader.ReadLine();
-                        result = line?.Replace("\r\n", string.Empty);
+                        buildDate = line?.Replace("\r\n", string.Empty);
                     }
                 }
             }
 
-            if (result != null)
-            {
-                AssemblyName assemblyName = assembly.GetName();
-                string? version = string.Empty;
-                if (assemblyName != null)
-                    version = assemblyName.Version?.ToString(4);
-
-                return $"{PluginConstants.PluginName} v.{version} ({result})";
-            }
-
-            return string.Empty;
+            return buildDate;
         }
     }
 }

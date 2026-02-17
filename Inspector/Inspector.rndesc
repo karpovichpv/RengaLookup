@@ -1,6 +1,6 @@
 ﻿<RengaPlugin>
 	<Name>Inspector</Name>
-	<Version>1.0</Version>
+	<Version>0.1</Version>
 	<RequiredAPIVersion>2.44</RequiredAPIVersion>
 	<Vendor>Pavel Karpovich</Vendor>
 	<Copyright>Copyright Pavel Karpovich. All rights reserved.</Copyright>

@@ -47,4 +47,11 @@
 		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
 </PropertyGroup>
 
+	<PropertyGroup>
+		<InspectorVersion>0.1.0.0</InspectorVersion>
+		<Version>$(InspectorVersion)</Version>
+		<AssemblyVersion>$(InspectorVersion)</AssemblyVersion>
+		<FileVersion>$(InspectorVersion)</FileVersion>
+	</PropertyGroup>
+
 </Project>
