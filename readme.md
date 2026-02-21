@@ -1,8 +1,11 @@
+
+<img width="800" alt="Renga Inspector plugin" src="https://github.com/user-attachments/assets/3a700fdb-d7d7-4650-91b3-a0fd49d65015" />
+
 # О программе
 
 Плагин Inspector для BIM системы Renga разработан для более быстрой и легкой разработки программ и приложений, используя открытый API. Фактически данный плагин является аналогом всем известных плагинов для AutoCAD [ARXDBG и MGDDBG](https://adn-cis.org/forum/index.php?topic=7274.0), или [RevitLookup](https://github.com/lookup-foundation/RevitLookup) для Revit, или [Tekla Lookup](http://github.com/karpovichpv/lookup) для TeklaStructures. 
 
-Код построен на рефлексии, хоть API модель Renda и довольно скудна на свойства, методы. Часть свойств, методов обрабатывается в коде отдельно. К ним относятся:
+Код построен на рефлексии. Хоть API модель Renda и довольно скудна на свойства, методы, часть свойств, методов обрабатывается в коде отдельно. К ним относятся:
 
 * IBeamParams
 * IColumnParams
