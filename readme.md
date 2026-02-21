@@ -2,7 +2,7 @@
 
 # О плагине
 
-Плагин Inspector для BIM системы Renga разработан для более быстрой и легкой разработки программ и приложений, используя открытый API. Фактически данный плагин является аналогом всем известных плагинов для AutoCAD [ARXDBG и MGDDBG](https://adn-cis.org/forum/index.php?topic=7274.0), или [RevitLookup](https://github.com/lookup-foundation/RevitLookup) для Revit, или [Tekla Lookup](http://github.com/karpovichpv/lookup) для TeklaStructures. 
+Плагин Inspector для BIM системы Renga разработан для более быстрой и легкой разработки программ и приложений, используя открытый API. Фактически данное решение является аналогом всем известных плагинов для AutoCAD [ARXDBG и MGDDBG](https://adn-cis.org/forum/index.php?topic=7274.0), или [RevitLookup](https://github.com/lookup-foundation/RevitLookup) для Revit, или [Tekla Lookup](http://github.com/karpovichpv/lookup) для TeklaStructures. 
 
 Код построен на рефлексии. Хоть API модель Renga и довольно скудна на свойства, методы, часть свойств, методов обрабатывается в коде отдельно. К ним относятся:
 
