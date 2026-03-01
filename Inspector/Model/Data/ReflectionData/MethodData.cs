@@ -18,6 +18,10 @@ namespace Inspector.Model.Data.ReflectionData
             {
                 _returnObject = _info.Invoke(_fatherObject, []);
             }
+            else if (info.Name is "GetProfilePlacementOnBaseline")
+            {
+                _returnObject = _info.Invoke(_fatherObject, [0d]);
+            }
         }
 
         private static string[] ForbidenMethodNames =>
